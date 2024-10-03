@@ -91,22 +91,29 @@ For print environment variables can use:
 ```
 $ echo $ENVIRONMENT_VAR
 ```
-ATTENTION! STORAGE NAME HAS LIMIT up to 24 chars
+### ATTENTION!
+- STORAGE NAME HAS LIMIT up to 24 chars
 
-`project_name` must be not longer than:
-`st${var.project_name}${var.environment}` without dash char.
+    `project_name` must be not longer than:
+    `st${var.project_name}${var.environment}` without dash char.
 
-So, for example, my error was:
+    So, for example, my error was:
 
-`project_name = itmarathon-epam-2024-lexxai-prod`
+    `project_name = itmarathon-epam-2024-lexxai-prod`
 
-```
-Error: name ("stitmarathonepam2024lexxaiprod") can only consist of lowercase letters and numbers, and must be between 3 and 24 characters long
-│
-│   with module.storage.azurerm_storage_account.storage,
-│   on modules/05_storage/main.tf line 3, in resource "azurerm_storage_account" "storage":
-│    3:   name                     = lower(replace("st${var.project_name}${var.environment}", "-", ""))
-```
+    ```
+    Error: name ("stitmarathonepam2024lexxaiprod") can only consist of lowercase letters and numbers, and must be between 3 and 24 characters long
+    │
+    │   with module.storage.azurerm_storage_account.storage,
+    │   on modules/05_storage/main.tf line 3, in resource "azurerm_storage_account" "storage":
+    │    3:   name                     = lower(replace("st${var.project_name}${var.environment}", "-", ""))
+    ```
+- Allowed_ip_ranges - don't use "0.0.0.0/0"
+    ```
+    allowed_ip_ranges = [
+     "X.X.X.X/32",  # Replace with your IP ranges, or remove it row for accept for all IPs, don't use "0.0.0.0/0"
+    ]
+    ```
 
 # terraform 
 ## terraform init
