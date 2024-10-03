@@ -1595,6 +1595,7 @@ az provider register --namespace Microsoft.Communication
   <summary>Click to expand result of command</summary>
 
 ```
+Registering is still on-going. You can monitor using 'az provider show -n Microsoft.Communication'
 ```
 </details>
 
@@ -1605,6 +1606,162 @@ terraform plan -var-file=terraform.tfvars -target=module.email
   <summary>Click to expand result of command</summary>
 
 ```
+module.email.data.azurerm_subscription.current: Reading...
+module.email.data.azurerm_client_config.current: Reading...
+module.email.data.azurerm_client_config.current: Read complete after 0s [id=Y2xpZW50Q29uZmlncy9jbGllbnRJZD0wNGIwNzc5NS04ZGRiLTQ2MWEtYmJlZS0wMmY5ZTFiZjdiNDY7b2JqZWN0SWQ9NDNmMTU1ZTctZWNkYS00N2Q0LTk0YTgtOTViMTRhMDI1MjUyO3N1YnNjcmlwdGlvbklkPWEwNmEzM2M5LTA4ZjEtNGRmZS04NWZkLWY2MTgxNTBjOGY5NTt0ZW5hbnRJZD1mMGUwZDY3Yy1iMDFmLTRmMzktODQ0Mi0xYTU0MzMyOGZkZjI=]
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod]
+module.email.data.azurerm_subscription.current: Read complete after 1s [id=/subscriptions/.....................]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.email.azuread_application.smtp_auth_app will be created
+  + resource "azuread_application" "smtp_auth_app" {
+      + app_role_ids                = (known after apply)
+      + client_id                   = (known after apply)
+      + disabled_by_microsoft       = (known after apply)
+      + display_name                = "smtp_auth_app-itmarathon-lexxai-prod"
+      + id                          = (known after apply)
+      + logo_url                    = (known after apply)
+      + oauth2_permission_scope_ids = (known after apply)
+      + object_id                   = (known after apply)
+      + prevent_duplicate_names     = false
+      + publisher_domain            = (known after apply)
+      + sign_in_audience            = "AzureADMyOrg"
+      + tags                        = (known after apply)
+      + template_id                 = (known after apply)
+
+      + feature_tags (known after apply)
+
+      + password (known after apply)
+    }
+
+  # module.email.azuread_application_password.smtp_auth_secret will be created
+  + resource "azuread_application_password" "smtp_auth_secret" {
+      + application_id = (known after apply)
+      + display_name   = (known after apply)
+      + end_date       = "2099-01-01T01:02:03Z"
+      + id             = (known after apply)
+      + key_id         = (known after apply)
+      + start_date     = (known after apply)
+      + value          = (sensitive value)
+    }
+
+  # module.email.azuread_service_principal.smtp_auth_sp will be created
+  + resource "azuread_service_principal" "smtp_auth_sp" {
+      + account_enabled             = true
+      + app_role_ids                = (known after apply)
+      + app_roles                   = (known after apply)
+      + application_tenant_id       = (known after apply)
+      + client_id                   = (known after apply)
+      + display_name                = (known after apply)
+      + homepage_url                = (known after apply)
+      + id                          = (known after apply)
+      + logout_url                  = (known after apply)
+      + oauth2_permission_scope_ids = (known after apply)
+      + oauth2_permission_scopes    = (known after apply)
+      + object_id                   = (known after apply)
+      + redirect_uris               = (known after apply)
+      + saml_metadata_url           = (known after apply)
+      + service_principal_names     = (known after apply)
+      + sign_in_audience            = (known after apply)
+      + tags                        = (known after apply)
+      + type                        = (known after apply)
+
+      + feature_tags (known after apply)
+
+      + features (known after apply)
+    }
+
+  # module.email.azurerm_communication_service.marathon_communication_service will be created
+  + resource "azurerm_communication_service" "marathon_communication_service" {
+      + data_location               = "Europe"
+      + id                          = (known after apply)
+      + name                        = "marathon-communication-service-itmarathon-lexxai-prod"
+      + primary_connection_string   = (sensitive value)
+      + primary_key                 = (sensitive value)
+      + resource_group_name         = "rg-itmarathon-lexxai-prod"
+      + secondary_connection_string = (sensitive value)
+      + secondary_key               = (sensitive value)
+    }
+
+  # module.email.azurerm_communication_service_email_domain_association.association will be created
+  + resource "azurerm_communication_service_email_domain_association" "association" {
+      + communication_service_id = (known after apply)
+      + email_service_domain_id  = (known after apply)
+      + id                       = (known after apply)
+    }
+
+  # module.email.azurerm_email_communication_service.marathon_email_communication_service will be created
+  + resource "azurerm_email_communication_service" "marathon_email_communication_service" {
+      + data_location       = "Europe"
+      + id                  = (known after apply)
+      + name                = "email-communication-service-itmarathon-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-lexxai-prod"
+    }
+
+  # module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain will be created
+  + resource "azurerm_email_communication_service_domain" "marathon_email_communication_service_domain" {
+      + domain_management       = "AzureManaged"
+      + email_service_id        = (known after apply)
+      + from_sender_domain      = (known after apply)
+      + id                      = (known after apply)
+      + mail_from_sender_domain = (known after apply)
+      + name                    = "AzureManagedDomain"
+      + verification_records    = (known after apply)
+    }
+
+  # module.email.azurerm_role_assignment.smtp_role_assignment will be created
+  + resource "azurerm_role_assignment" "smtp_role_assignment" {
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = (known after apply)
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.email.azurerm_role_definition.smtp_send_role will be created
+  + resource "azurerm_role_definition" "smtp_send_role" {
+      + assignable_scopes           = [
+          + "/subscriptions/.....................",
+        ]
+      + description                 = "Custom role for sending emails via SMTP"
+      + id                          = (known after apply)
+      + name                        = "smtp_send_role-itmarathon-lexxai-prod"
+      + role_definition_id          = (known after apply)
+      + role_definition_resource_id = (known after apply)
+      + scope                       = "/subscriptions/....................."
+
+      + permissions {
+          + actions = [
+              + "Microsoft.Communication/CommunicationServices/Read",
+              + "Microsoft.Communication/EmailServices/Write",
+            ]
+        }
+    }
+
+Plan: 9 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + email_sender_domain  = (known after apply)
+  + email_service_domain = "AzureManagedDomain"
+  + smtp_password        = (sensitive value)
+  + smtp_username        = (known after apply)
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration. 
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically  
+│ suggests to use it as part of an error message.
+╵
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 ```
 </details>
 
@@ -1615,5 +1772,83 @@ terraform apply -var-file=terraform.tfvars -target=module.email
   <summary>Click to expand result of command</summary>
 
 ```
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.email.azuread_application.smtp_auth_app: Creating...
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Creating...
+module.email.azurerm_communication_service.marathon_communication_service: Creating...
+module.email.azurerm_role_definition.smtp_send_role: Creating...
+module.email.azuread_application.smtp_auth_app: Still creating... [10s elapsed]
+module.email.azurerm_role_definition.smtp_send_role: Creation complete after 4s [id=/subscriptions/...................../providers/Microsoft.Authorization/roleDefinitions/..............|/subscriptions/.....................]
+module.email.azuread_application.smtp_auth_app: Creation complete after 14s [id=/applications/.......]
+module.email.azuread_application_password.smtp_auth_secret: Creating...
+module.email.azuread_service_principal.smtp_auth_sp: Creating...
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [10s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Still creating... [10s elapsed]
+module.email.azuread_service_principal.smtp_auth_sp: Still creating... [10s elapsed]
+module.email.azuread_application_password.smtp_auth_secret: Still creating... [10s elapsed]
+module.email.azuread_service_principal.smtp_auth_sp: Creation complete after 12s [id=/servicePrincipals/........]
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [20s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Still creating... [20s elapsed]
+module.email.azuread_application_password.smtp_auth_secret: Creation complete after 18s [id=........./password/.................]
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [30s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Still creating... [30s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Still creating... [41s elapsed]
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [41s elapsed]
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [51s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Still creating... [51s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Still creating... [1m1s elapsed]
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [1m1s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Still creating... [1m11s elapsed]
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [1m11s elapsed]
+module.email.azurerm_communication_service.marathon_communication_service: Creation complete after 1m13s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Communication/communicationServices/marathon-communication-service-itmarathon-lexxai-prod]
+module.email.azurerm_role_assignment.smtp_role_assignment: Creating...
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Still creating... [1m21s elapsed]
+module.email.azurerm_email_communication_service.marathon_email_communication_service: Creation complete after 1m22s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Communication/emailServices/email-communication-service-itmarathon-lexxai-prod]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Creating...
+module.email.azurerm_role_assignment.smtp_role_assignment: Still creating... [10s elapsed]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Still creating... [10s elapsed]
+module.email.azurerm_role_assignment.smtp_role_assignment: Still creating... [20s elapsed]
+module.email.azurerm_role_assignment.smtp_role_assignment: Creation complete after 25s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Communication/communicationServices/marathon-communication-service-itmarathon-lexxai-prod/providers/Microsoft.Authorization/roleAssignments/3f3bb4a9-1b3d-68da-28fb-22a0e68cbaff]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Still creating... [20s elapsed]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Still creating... [30s elapsed]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Still creating... [40s elapsed]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Still creating... [50s elapsed]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Still creating... [1m0s elapsed]
+module.email.azurerm_email_communication_service_domain.marathon_email_communication_service_domain: Creation complete after 1m10s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Communication/emailServices/email-communication-service-itmarathon-lexxai-prod/domains/AzureManagedDomain]
+module.email.azurerm_communication_service_email_domain_association.association: Creating...
+module.email.azurerm_communication_service_email_domain_association.association: Creation complete after 7s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Communication/communicationServices/marathon-communication-service-itmarathon-lexxai-prod|/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Communication/emailServices/email-communication-service-itmarathon-lexxai-prod/domains/AzureManagedDomain]
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully    
+│ updated. Run the following command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when      
+│ Terraform specifically suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 9 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+email_sender_domain = "....................azurecomm.net"
+email_service_domain = "AzureManagedDomain"
+monitoring_vm_public_ip = ""
+mysql_server_fqdn = "marathon-itmarathon-lexxai-prod.mysql.database.azure.com"
+mysql_subnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod"
+resource_group_name = "rg-itmarathon-lexxai-prod"
+smtp_password = <sensitive>
+smtp_username = "marathon-communication-service-itmarathon-lexxai-prod..........................."
+storage_account_name = "stitmarathonlexxaiprod"
+vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 ```
 </details>
+
+![email](image-7.png)
+
