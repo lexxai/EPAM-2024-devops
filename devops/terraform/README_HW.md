@@ -2481,3 +2481,18 @@ storage_account_name = "stitmarathonlexxaiprod"
 vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 ```
 </details>
+
+## Grafana
+Access my monitoring IP of Virtual machine `mon-vm-.....`:
+
+Login / password from  `devops\terraform\terraform.tfvars`
+
+```
+grafana_password = "....."
+grafana_user     = "admin"
+```
+Grafana login:
+![Grafana login](image-10.png)
+
+Grafana Dash Board:
+![grafana dash board](image-11.png)
