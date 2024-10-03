@@ -49,7 +49,7 @@ if [ -z "${TF_VAR_infinity_client_id}" ] || [ -z "${TF_VAR_infinity_client_secre
 
     # # Check and display values
     # echo "TF_VAR_infinity_client_id: ${TF_VAR_infinity_client_id}"
-    # echo "TF_VAR_infinity_client_secret: ${TF_VAR_infinity_client_secret}"
+    echo "TF_VAR_infinity_client_secret: ${TF_VAR_infinity_client_secret}"
 
 else
     echo "Existing Infinity datasource credentials found. Using them."
@@ -64,7 +64,7 @@ if [ -z "${TF_VAR_azure_client_id}" ] || [ -z "${TF_VAR_azure_client_secret}" ];
     export TF_VAR_azure_client_secret
 
     # echo "TF_VAR_azure_client_id: ${TF_VAR_azure_client_id}"
-    # echo "TF_VAR_azure_client_secret: ${TF_VAR_azure_client_secret}"
+    echo "TF_VAR_azure_client_secret: ${TF_VAR_azure_client_secret}"
 
 else
     echo "Existing Azure Monitor datasource credentials found. Using them."
