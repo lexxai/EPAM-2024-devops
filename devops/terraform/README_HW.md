@@ -1349,6 +1349,8 @@ vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lex
 ```
 </details>
 
+![storage](image-6.png)
+
 ### 6. App .NET (07_app_dotnet)
 ```
 terraform plan -var-file=terraform.tfvars -target=module.app_dotnet
