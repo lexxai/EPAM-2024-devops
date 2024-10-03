@@ -1348,3 +1348,55 @@ storage_account_name = "stitmarathonlexxaiprod"
 vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 ```
 </details>
+
+### 6. App .NET (07_app_dotnet)
+```
+terraform plan -var-file=terraform.tfvars -target=module.app_dotnet
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
+```
+terraform apply -var-file=terraform.tfvars -target=module.app_dotnet
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
+### 7. Email (08_email)
+```
+az provider register --namespace Microsoft.Communication
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
+```
+terraform plan -var-file=terraform.tfvars -target=module.email
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
+```
+terraform apply -var-file=terraform.tfvars -target=module.email
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
