@@ -2371,6 +2371,16 @@ terraform plan -var-file=terraform.tfvars -target=module.grafana_dashboard
   <summary>Click to expand result of command</summary>
 
 ```
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration. 
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically  
+│ suggests to use it as part of an error message.
 ```
 </details>
 
@@ -2382,6 +2392,42 @@ terraform apply -var-file=terraform.tfvars -target=module.grafana_dashboard
   <summary>Click to expand result of command</summary>
 
 ```
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration. 
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically  
+│ suggests to use it as part of an error message.
+╵
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully    
+│ updated. Run the following command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when      
+│ Terraform specifically suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+email_sender_domain = ".......................azurecomm.net"
+email_service_domain = "AzureManagedDomain"
+monitoring_vm_public_ip = ".........."
+mysql_server_fqdn = "marathon-itmarathon-lexxai-prod.mysql.database.azure.com"
+mysql_subnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod"
+resource_group_name = "rg-itmarathon-lexxai-prod"
+smtp_password = <sensitive>
+smtp_username = "marathon-communication-service-itmarathon-lexxai-prod............."
+storage_account_name = "stitmarathonlexxaiprod"
+vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 
 ```
 </details>
