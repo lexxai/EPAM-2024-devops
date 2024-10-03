@@ -1100,6 +1100,12 @@ vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-lexxai-p
 
   ![delete resources](image-4.png)
 
+  or
+
+  ```
+  terraform destroy -var-file=terraform.tfvars
+  ```
+
 </details>
 
 ```
@@ -2429,5 +2435,49 @@ smtp_username = "marathon-communication-service-itmarathon-lexxai-prod..........
 storage_account_name = "stitmarathonlexxaiprod"
 vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 
+```
+</details>
+
+
+### Apply the Entire Infrastructure
+
+```
+terraform apply -var-file=terraform.tfvars
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.grafana_dashboards.grafana_data_source.azure_cost_analysis: Creating...
+module.grafana_dashboards.grafana_dashboard.azure_multi_webapp_dashboard: Creating...
+module.grafana_dashboards.grafana_dashboard.azure_vm_dashboard: Creating...
+module.grafana_dashboards.grafana_data_source.azure_cost_analysis: Creation complete after 1s [id=1:adzsmbiyw8zy8b]
+module.grafana_dashboards.grafana_dashboard.azure_multi_webapp_dashboard: Creation complete after 1s [id=1:azure-webapp]
+module.grafana_dashboards.grafana_dashboard.azure_cost_analysis: Creating...
+module.grafana_dashboards.grafana_dashboard.azure_vm_dashboard: Creation complete after 1s [id=1:azure-vm]
+module.grafana_dashboards.grafana_dashboard.azure_cost_analysis: Creation complete after 0s [id=1:fdmsz6sc6myv4d]
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+email_sender_domain = "........azurecomm.net"
+email_service_domain = "AzureManagedDomain"
+monitoring_vm_public_ip = "......."
+mysql_server_fqdn = "marathon-itmarathon-lexxai-prod.mysql.database.azure.com"
+mysql_subnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod"
+resource_group_name = "rg-itmarathon-lexxai-prod"
+smtp_password = <sensitive>
+smtp_port = 587
+smtp_server = "smtp.azurecomm.net"
+smtp_username = "marathon-communication-service-itmarathon-lexxai-prod...................."
+storage_account_name = "stitmarathonlexxaiprod"
+vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 ```
 </details>
