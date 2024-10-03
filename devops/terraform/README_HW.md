@@ -1102,17 +1102,17 @@ terraform plan -var-file=terraform.tfvars -target=module.storage
   <summary>Click to expand result of command</summary>
 
 ```
-module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod]
-module.network.azurerm_public_ip.public_ips["bastion"]: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-lexxai-prod]
-module.network.azurerm_public_ip.public_ips["monitoring"]: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-lexxai-prod]
-module.network.azurerm_private_dns_zone.mysql: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com]
-module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod]
-module.network.azurerm_subnet.private_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/private-subnet-itmarathon-lexxai-prod]
-module.network.azurerm_subnet.mysql_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod]
-module.network.azurerm_subnet.public_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/public-subnet-itmarathon-lexxai-prod]
-module.network.azurerm_subnet.bastion_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/bastion-subnet-itmarathon-lexxai-prod]
-module.network.azurerm_subnet.monitoring_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/monitoring-subnet-itmarathon-lexxai-prod]
-module.network.azurerm_private_dns_zone_virtual_network_link.mysql: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com/virtualNetworkLinks/mysqldnslink]
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["bastion"]: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["monitoring"]: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-lexxai-prod]
+module.network.azurerm_private_dns_zone.mysql: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com]
+module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.private_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/private-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.mysql_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.public_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/public-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.bastion_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/bastion-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.monitoring_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/monitoring-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_private_dns_zone_virtual_network_link.mysql: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com/virtualNetworkLinks/mysqldnslink]
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
@@ -1293,6 +1293,51 @@ terraform apply -var-file=terraform.tfvars -target=module.storage
   <summary>Click to expand result of command</summary>
 
 ```
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
 
+  Enter a value: yes
+
+module.storage.azurerm_storage_account.storage: Creating...
+module.storage.azurerm_storage_account.storage: Still creating... [10s elapsed]
+module.storage.azurerm_storage_account.storage: Still creating... [20s elapsed]
+module.storage.azurerm_storage_account.storage: Still creating... [30s elapsed]
+module.storage.azurerm_storage_account.storage: Still creating... [40s elapsed]
+module.storage.azurerm_storage_account.storage: Still creating... [50s elapsed]
+module.storage.azurerm_storage_account.storage: Still creating... [1m0s elapsed]
+module.storage.azurerm_storage_account.storage: Still creating... [1m10s elapsed]
+module.storage.azurerm_storage_account.storage: Creation complete after 1m12s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Storage/storageAccounts/stitmarathonlexxaiprod]
+module.storage.time_sleep.wait_60_seconds: Creating...
+module.storage.time_sleep.wait_60_seconds: Still creating... [10s elapsed]
+module.storage.time_sleep.wait_60_seconds: Still creating... [20s elapsed]
+module.storage.time_sleep.wait_60_seconds: Still creating... [30s elapsed]
+module.storage.time_sleep.wait_60_seconds: Still creating... [40s elapsed]
+module.storage.time_sleep.wait_60_seconds: Still creating... [50s elapsed]
+module.storage.time_sleep.wait_60_seconds: Still creating... [1m0s elapsed]
+module.storage.time_sleep.wait_60_seconds: Creation complete after 1m0s [id=2024-10-03T19:42:30Z]
+module.storage.azurerm_storage_container.marathon_storage: Creating...
+module.storage.azurerm_storage_container.marathon_storage: Creation complete after 2s [id=https://stitmarathonlexxaiprod.blob.core.windows.net/itmarathoncontainer]
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully    
+│ updated. Run the following command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when      
+│ Terraform specifically suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+monitoring_vm_public_ip = ""
+mysql_server_fqdn = "marathon-itmarathon-lexxai-prod.mysql.database.azure.com"
+mysql_subnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod"
+resource_group_name = "rg-itmarathon-lexxai-prod"
+storage_account_name = "stitmarathonlexxaiprod"
+vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 ```
 </details>
