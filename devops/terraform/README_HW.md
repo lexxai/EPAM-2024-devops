@@ -1085,15 +1085,205 @@ vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-lexxai-p
 
 
 ### 5. Storage (05_storage)
+
+<details>
+  <summary>Was replaced project name to shorten. Click to expand result of error.</summary>
+
+  So after change project name, need delete all previous resources and start again, since total number of "PUBLIC IP" limited on this subscription, and names of resources will be mixed then.
+
+  ![delete resources](image-4.png)
+
+</details>
+
 ```
 terraform plan -var-file=terraform.tfvars -target=module.storage
 ```
-Was replaced project name to shorten:
 <details>
   <summary>Click to expand result of command</summary>
 
-So after change project name, need delete all previous resources and start again, since total number of "PUBLIC IP" limited on this subscription, and names of resources will be mixed then.
-![delete resources](image-4.png)
+```
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["bastion"]: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["monitoring"]: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-lexxai-prod]
+module.network.azurerm_private_dns_zone.mysql: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com]
+module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.private_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/private-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.mysql_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.public_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/public-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.bastion_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/bastion-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.monitoring_subnet: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/monitoring-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_private_dns_zone_virtual_network_link.mysql: Refreshing state... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-f618150c8f95/resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com/virtualNetworkLinks/mysqldnslink]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.storage.azurerm_storage_account.storage will be created
+  + resource "azurerm_storage_account" "storage" {
+      + access_tier                        = (known after apply)
+      + account_kind                       = "StorageV2"
+      + account_replication_type           = "LRS"
+      + account_tier                       = "Standard"
+      + allow_nested_items_to_be_public    = false
+      + cross_tenant_replication_enabled   = false
+      + default_to_oauth_authentication    = false
+      + dns_endpoint_type                  = "Standard"
+      + enable_https_traffic_only          = (known after apply)
+      + https_traffic_only_enabled         = (known after apply)
+      + id                                 = (known after apply)
+      + infrastructure_encryption_enabled  = false
+      + is_hns_enabled                     = false
+      + large_file_share_enabled           = (known after apply)
+      + local_user_enabled                 = true
+      + location                           = "northeurope"
+      + min_tls_version                    = "TLS1_2"
+      + name                               = "stitmarathonlexxaiprod"
+      + nfsv3_enabled                      = false
+      + primary_access_key                 = (sensitive value)
+      + primary_blob_connection_string     = (sensitive value)
+      + primary_blob_endpoint              = (known after apply)
+      + primary_blob_host                  = (known after apply)
+      + primary_blob_internet_endpoint     = (known after apply)
+      + primary_blob_internet_host         = (known after apply)
+      + primary_blob_microsoft_endpoint    = (known after apply)
+      + primary_blob_microsoft_host        = (known after apply)
+      + primary_connection_string          = (sensitive value)
+      + primary_dfs_endpoint               = (known after apply)
+      + primary_dfs_host                   = (known after apply)
+      + primary_dfs_internet_endpoint      = (known after apply)
+      + primary_dfs_internet_host          = (known after apply)
+      + primary_dfs_microsoft_endpoint     = (known after apply)
+      + primary_dfs_microsoft_host         = (known after apply)
+      + primary_file_endpoint              = (known after apply)
+      + primary_file_host                  = (known after apply)
+      + primary_file_internet_endpoint     = (known after apply)
+      + primary_file_internet_host         = (known after apply)
+      + primary_file_microsoft_endpoint    = (known after apply)
+      + primary_file_microsoft_host        = (known after apply)
+      + primary_location                   = (known after apply)
+      + primary_queue_endpoint             = (known after apply)
+      + primary_queue_host                 = (known after apply)
+      + primary_queue_microsoft_endpoint   = (known after apply)
+      + primary_queue_microsoft_host       = (known after apply)
+      + primary_table_endpoint             = (known after apply)
+      + primary_table_host                 = (known after apply)
+      + primary_table_microsoft_endpoint   = (known after apply)
+      + primary_table_microsoft_host       = (known after apply)
+      + primary_web_endpoint               = (known after apply)
+      + primary_web_host                   = (known after apply)
+      + primary_web_internet_endpoint      = (known after apply)
+      + primary_web_internet_host          = (known after apply)
+      + primary_web_microsoft_endpoint     = (known after apply)
+      + primary_web_microsoft_host         = (known after apply)
+      + public_network_access_enabled      = true
+      + queue_encryption_key_type          = "Service"
+      + resource_group_name                = "rg-itmarathon-lexxai-prod"
+      + secondary_access_key               = (sensitive value)
+      + secondary_blob_connection_string   = (sensitive value)
+      + secondary_blob_endpoint            = (known after apply)
+      + secondary_blob_host                = (known after apply)
+      + secondary_blob_internet_endpoint   = (known after apply)
+      + secondary_blob_internet_host       = (known after apply)
+      + secondary_blob_microsoft_endpoint  = (known after apply)
+      + secondary_blob_microsoft_host      = (known after apply)
+      + secondary_connection_string        = (sensitive value)
+      + secondary_dfs_endpoint             = (known after apply)
+      + secondary_dfs_host                 = (known after apply)
+      + secondary_dfs_internet_endpoint    = (known after apply)
+      + secondary_dfs_internet_host        = (known after apply)
+      + secondary_dfs_microsoft_endpoint   = (known after apply)
+      + secondary_dfs_microsoft_host       = (known after apply)
+      + secondary_file_endpoint            = (known after apply)
+      + secondary_file_host                = (known after apply)
+      + secondary_file_internet_endpoint   = (known after apply)
+      + secondary_file_internet_host       = (known after apply)
+      + secondary_file_microsoft_endpoint  = (known after apply)
+      + secondary_file_microsoft_host      = (known after apply)
+      + secondary_location                 = (known after apply)
+      + secondary_queue_endpoint           = (known after apply)
+      + secondary_queue_host               = (known after apply)
+      + secondary_queue_microsoft_endpoint = (known after apply)
+      + secondary_queue_microsoft_host     = (known after apply)
+      + secondary_table_endpoint           = (known after apply)
+      + secondary_table_host               = (known after apply)
+      + secondary_table_microsoft_endpoint = (known after apply)
+      + secondary_table_microsoft_host     = (known after apply)
+      + secondary_web_endpoint             = (known after apply)
+      + secondary_web_host                 = (known after apply)
+      + secondary_web_internet_endpoint    = (known after apply)
+      + secondary_web_internet_host        = (known after apply)
+      + secondary_web_microsoft_endpoint   = (known after apply)
+      + secondary_web_microsoft_host       = (known after apply)
+      + sftp_enabled                       = false
+      + shared_access_key_enabled          = true
+      + table_encryption_key_type          = "Service"
+
+      + blob_properties {
+          + change_feed_enabled      = true
+          + default_service_version  = (known after apply)
+          + last_access_time_enabled = true
+          + versioning_enabled       = true
+        }
+
+      + network_rules {
+          + bypass                     = [
+              + "AzureServices",
+            ]
+          + default_action             = "Allow"
+          + ip_rules                   = [
+              + "0.0.0.0",
+            ]
+          + virtual_network_subnet_ids = (known after apply)
+        }
+
+      + queue_properties (known after apply)
+
+      + routing (known after apply)
+
+      + share_properties (known after apply)
+
+      + static_website {
+          + error_404_document = "404.html"
+          + index_document     = "index.html"
+        }
+    }
+
+  # module.storage.azurerm_storage_container.marathon_storage will be created
+  + resource "azurerm_storage_container" "marathon_storage" {
+      + container_access_type             = "private"
+      + default_encryption_scope          = (known after apply)
+      + encryption_scope_override_enabled = true
+      + has_immutability_policy           = (known after apply)
+      + has_legal_hold                    = (known after apply)
+      + id                                = (known after apply)
+      + metadata                          = (known after apply)
+      + name                              = "itmarathoncontainer"
+      + resource_manager_id               = (known after apply)
+      + storage_account_name              = "stitmarathonlexxaiprod"
+    }
+
+  # module.storage.time_sleep.wait_60_seconds will be created
+  + resource "time_sleep" "wait_60_seconds" {
+      + create_duration = "60s"
+      + id              = (known after apply)
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current     
+│ configuration.
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform    
+│ specifically suggests to use it as part of an error message.
+╵
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+```
 </details>
 
 ```
