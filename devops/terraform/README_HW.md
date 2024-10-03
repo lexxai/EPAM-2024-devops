@@ -1852,3 +1852,27 @@ vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lex
 
 ![email](image-7.png)
 
+### 8. App Python (09_app_python)
+```
+$ terraform plan -var-file=terraform.tfvars -target=module.app_python
+```
+
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+
+```
+</details>
+
+```
+$ terraform apply -var-file=terraform.tfvars -target=module.app_python
+```
+
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
