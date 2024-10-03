@@ -105,13 +105,16 @@ Initializing modules...
 - email in modules/08_email
 ....
 ```
-![alt text](image.png)
+![terraform installed](image.png)
 ## Plan and Apply the Infrastructure by Modules
 ### 1. Network (01_network)
 
 ```
 $ terraform plan -var-file=terraform.tfvars -target=module.network
 ```
+<details>
+  <summary>Click to expand result of command</summary>
+
 ```
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
@@ -335,11 +338,16 @@ Changes to Outputs:
 
 Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
+</details>
 
 
 ```
 $ terraform apply -var-file=terraform.tfvars -target=module.network
 ```
+<details>
+  <summary>Click to expand result of command</summary>
+
+
 ```
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
@@ -382,14 +390,17 @@ monitoring_vm_public_ip = ""
 mysql_subnet_id = "/subscriptions/......./resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
 resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
 vnet_id = "/subscriptions/......../resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
-
-
 ```
+</details>
 
 ### 2. Security (02_security)
 ```
 $ terraform plan -var-file=terraform.tfvars -target=module.security
 ```
+<details>
+  <summary>Click to expand result of command</summary>
+
+
 ```
 module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod]
 module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod]
@@ -623,10 +634,14 @@ Plan: 17 to add, 0 to change, 0 to destroy.
 
 Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
+</details>
 
 ```
 $ terraform apply -var-file=terraform.tfvars -target=module.security
 ```
+<details>
+  <summary>Click to expand result of command</summary>
+
 ```
 ...
 
@@ -696,12 +711,17 @@ mysql_subnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-
 resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
 vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
 ```
+</details>
 
 ### 3. Bastion (03_bastion)
 
 ```
 $ terraform plan -var-file=terraform.tfvars -target=module.bastion
 ```
+<details>
+  <summary>Click to expand result of command</summary>
+
+
 ```
 module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod]
 module.network.azurerm_public_ip.public_ips["monitoring"]: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-epam-2024-lexxai-prod]
@@ -816,10 +836,13 @@ Plan: 2 to add, 0 to change, 0 to destroy.
 
 Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
+</details>
 
 ```
 $ terraform apply -var-file=terraform.tfvars -target=module.bastion
 ```
+<details>
+  <summary>Click to expand result of command</summary>
 
 ```
 ...
@@ -858,5 +881,201 @@ monitoring_vm_public_ip = ""
 mysql_subnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
 resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
 vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
+```
+</details>
+
+![vm bastion](image-2.png)
+
+### 4. Database (04_database)
 
 ```
+$ terraform apply -var-file=terraform.tfvars -target=module.databaseterraform plan -var-file=terraform.tfvars -target=module.database
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_private_dns_zone.mysql: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com]
+module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_subnet.mysql_subnet: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod]   
+module.network.azurerm_private_dns_zone_virtual_network_link.mysql: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com/virtualNetworkLinks/mysqldnslink] 
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.database.azurerm_mysql_flexible_database.marathon_mysql will be created
+  + resource "azurerm_mysql_flexible_database" "marathon_mysql" {
+      + charset             = "utf8mb4"
+      + collation           = "utf8mb4_0900_ai_ci"
+      + id                  = (known after apply)
+      + name                = "itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + server_name         = "marathon-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.database.azurerm_mysql_flexible_server.marathon_mysql will be created
+  + resource "azurerm_mysql_flexible_server" "marathon_mysql" {
+      + administrator_login           = (sensitive value)
+      + administrator_password        = (sensitive value)
+      + backup_retention_days         = 7
+      + delegated_subnet_id           = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
+      + fqdn                          = (known after apply)
+      + geo_redundant_backup_enabled  = false
+      + id                            = (known after apply)
+      + location                      = "northeurope"
+      + name                          = "marathon-itmarathon-epam-2024-lexxai-prod"
+      + private_dns_zone_id           = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com"
+      + public_network_access_enabled = (known after apply)
+      + replica_capacity              = (known after apply)
+      + replication_role              = (known after apply)
+      + resource_group_name           = "rg-itmarathon-epam-2024-lexxai-prod"
+      + sku_name                      = (sensitive value)
+      + version                       = (sensitive value)
+      + zone                          = "3"
+
+      + storage (known after apply)
+    }
+
+  # module.database.azurerm_mysql_flexible_server_configuration.event_scheduler will be created
+  + resource "azurerm_mysql_flexible_server_configuration" "event_scheduler" {
+      + id                  = (known after apply)
+      + name                = "event_scheduler"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + server_name         = "marathon-itmarathon-epam-2024-lexxai-prod"
+      + value               = "OFF"
+    }
+
+  # module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport will be created
+  + resource "azurerm_mysql_flexible_server_configuration" "require_secure_transport" {
+      + id                  = (known after apply)
+      + name                = "require_secure_transport"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + server_name         = "marathon-itmarathon-epam-2024-lexxai-prod"
+      + value               = "OFF"
+    }
+
+  # module.database.azurerm_mysql_flexible_server_configuration.sql_generate_invisible_primary_key will be created
+  + resource "azurerm_mysql_flexible_server_configuration" "sql_generate_invisible_primary_key" {
+      + id                  = (known after apply)
+      + name                = "sql_generate_invisible_primary_key"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + server_name         = "marathon-itmarathon-epam-2024-lexxai-prod"
+      + value               = "OFF"
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + mysql_server_fqdn   = (known after apply)
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current  
+│ configuration.
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform 
+│ specifically suggests to use it as part of an error message.
+╵
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.       
+```
+</details>
+
+
+```
+$ terraform apply -var-file=terraform.tfvars -target=module.database
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+...
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Creating...
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Still creating... [10s elapsed]
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Still creating... [20s elapsed]
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Still creating... [30s elapsed]
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Still creating... [40s elapsed]
+...
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Still creating... [6m40s elapsed]
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Still creating... [6m50s elapsed]
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Still creating... [7m0s elapsed]
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Creation complete after 7m8s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.DBforMySQL/flexibleServers/marathon-itmarathon-epam-2024-lexxai-prod]
+module.database.azurerm_mysql_flexible_server_configuration.sql_generate_invisible_primary_key: Creating...
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Creating...
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Creating...
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Creating...
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Still creating... [10s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.sql_generate_invisible_primary_key: Still creating... [10s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [10s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [10s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.sql_generate_invisible_primary_key: Creation complete after 19s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.DBforMySQL/flexibleServers/marathon-itmarathon-epam-2024-lexxai-prod/configurations/sql_generate_invisible_primary_key]
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Still creating... [20s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [20s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [20s elapsed]
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Still creating... [30s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [30s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [30s elapsed]
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Still creating... [40s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [40s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [40s elapsed]
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Still creating... [50s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [50s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [50s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [1m0s elapsed]
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Still creating... [1m0s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [1m0s elapsed]
+module.database.azurerm_mysql_flexible_database.marathon_mysql: Creation complete after 1m5s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.DBforMySQL/flexibleServers/marathon-itmarathon-epam-2024-lexxai-prod/databases/itmarathon-epam-2024-lexxai-prod]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [1m10s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [1m10s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Still creating... [1m20s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [1m20s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.require_secure_transport: Creation complete after 1m23s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.DBforMySQL/flexibleServers/marathon-itmarathon-epam-2024-lexxai-prod/configurations/require_secure_transport]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Still creating... [1m30s elapsed]
+module.database.azurerm_mysql_flexible_server_configuration.event_scheduler: Creation complete after 1m40s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.DBforMySQL/flexibleServers/marathon-itmarathon-epam-2024-lexxai-prod/configurations/event_scheduler]
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully updated. Run the following   
+│ command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically
+│ suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+monitoring_vm_public_ip = ""
+mysql_server_fqdn = "marathon-itmarathon-epam-2024-lexxai-prod.mysql.database.azure.com"
+mysql_subnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
+resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
+
+```
+</details>
+
+![mysql](image-3.png)
+
+### 5. Storage (05_storage)
+```
+terraform plan -var-file=terraform.tfvars -target=module.storage
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+code
+```
+</details>
