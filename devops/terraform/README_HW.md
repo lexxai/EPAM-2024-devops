@@ -2182,7 +2182,7 @@ Terraform will perform the following actions:
       + vm_agent_platform_updates_enabled                      = false
 
       + admin_ssh_key {
-          + public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDoRoFHwpPBVRESmj+U4H5Eebtm5BKFm008NC5dxhFR29DfMBRhIeER274sSnC7vdoAGZbHR4d7712vwizd0dcS+sis5K1x+EvPq824/dNU/nt7VXwSxF7QvT3trEpu1NlNP8svIgE5wmOpjskgj6SJeR3e8YadHBA9ppvnPJoiiPK4uArKp3Gn45rYzN8WxgUfRFOki8W74N/ym3CkOpnKX0MTi7pVI3CY0JSrSY2fpGQjwf7ImkY+6D6FdtvEdk1L7L0Kp3TLddCSjzu0JqqM6Zhbt5VPAit0zYz+aG7fOylHhA0yyEHJH7bJsIGWZMsobGwG5qehip3FOcT4Pn1P7E+u60nmBtcG+2LM57aU/92z7WY+FcouCTEgxT8h8GWAc6k5pKeY3xeX9wvtZkyxLlTttyFSpMAc1lKKYVA5UqpKShwgG/TLVMRSDyDgF3LqSESjJEZ68+yPW1azrn33OyU4Uq5SKLMrhnn9TAb6ux1Wj9kdBgXpWITbfY8iV1c= lexxai@LENOVO"
+          + public_key = "ssh-rsa AAAAB3NzaC1"
           + username   = "azureuser"
         }
 
