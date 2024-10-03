@@ -91,6 +91,22 @@ For print environment variables can use:
 ```
 $ echo $ENVIRONMENT_VAR
 ```
+ATTENTION! STORAGE NAME HAS LIMIT up to 24 chars
+
+`project_name` must be not longer than:
+`st${var.project_name}${var.environment}` without dash char.
+
+So, for example, my error was:
+
+`project_name = itmarathon-epam-2024-lexxai-prod`
+
+```
+Error: name ("stitmarathonepam2024lexxaiprod") can only consist of lowercase letters and numbers, and must be between 3 and 24 characters long
+│
+│   with module.storage.azurerm_storage_account.storage,
+│   on modules/05_storage/main.tf line 3, in resource "azurerm_storage_account" "storage":
+│    3:   name                     = lower(replace("st${var.project_name}${var.environment}", "-", ""))
+```
 
 # terraform 
 ## terraform init
@@ -889,7 +905,7 @@ vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-202
 ### 4. Database (04_database)
 
 ```
-$ terraform apply -var-file=terraform.tfvars -target=module.databaseterraform plan -var-file=terraform.tfvars -target=module.database
+$ terraform plan -var-file=terraform.tfvars -target=module.database
 ```
 <details>
   <summary>Click to expand result of command</summary>
@@ -1062,20 +1078,31 @@ mysql_server_fqdn = "marathon-itmarathon-epam-2024-lexxai-prod.mysql.database.az
 mysql_subnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
 resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
 vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
-
 ```
 </details>
 
 ![mysql](image-3.png)
 
+
 ### 5. Storage (05_storage)
 ```
 terraform plan -var-file=terraform.tfvars -target=module.storage
+```
+Was replaced project name to shorten:
+<details>
+  <summary>Click to expand result of command</summary>
+
+So after change project name, need delete all previous resources and start again, since total number of "PUBLIC IP" limited on this subscription, and names of resources will be mixed then.
+![delete resources](image-4.png)
+</details>
+
+```
+terraform apply -var-file=terraform.tfvars -target=module.storage
 ```
 <details>
   <summary>Click to expand result of command</summary>
 
 ```
-code
+
 ```
 </details>
