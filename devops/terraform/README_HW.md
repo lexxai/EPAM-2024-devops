@@ -2483,7 +2483,16 @@ vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lex
 </details>
 
 ## Grafana
-Access my monitoring IP of Virtual machine `mon-vm-.....`:
+
+Monitoring IP of Virtual machine `mon-vm-.....`:
+
+```
+ $ terraform output | grep monitoring_vm_public_ip
+ monitoring_vm_public_ip = "..............."
+
+```
+
+Access by IP:
 
 Login / password from  `devops\terraform\terraform.tfvars`
 
