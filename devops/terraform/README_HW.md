@@ -2117,6 +2117,186 @@ terraform plan -var-file=terraform.tfvars -target=module.monitoring
   <summary>Click to expand result of command</summary>
 
 ```
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod]
+module.security.azurerm_network_security_group.mysql_subnet_sg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/mysql-services-itmarathon-lexxai-prod]
+module.network.azurerm_private_dns_zone.mysql: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com]
+module.security.azurerm_network_security_group.public_subnet_sg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-lb-services-itmarathon-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["bastion"]: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["monitoring"]: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-lexxai-prod]
+module.security.azurerm_network_security_group.bastion_subnet_sg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/bastion-services-itmarathon-lexxai-prod]
+module.security.azurerm_network_security_group.private_subnet_sg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-app-services-itmarathon-lexxai-prod]
+module.security.azurerm_network_security_group.monitoring_subnet_sg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod]
+module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod]
+module.security.azurerm_network_security_rule.allow_http_https_from_allowed_ips: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-lb-services-itmarathon-lexxai-prod/securityRules/AllowHTTPandHTTPSFromAllowedIPs]  
+module.security.azurerm_network_security_rule.allow_http_from_internet_monitoring: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTP]
+module.security.azurerm_network_security_rule.allow_https_from_internet_monitoring: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTPS]
+module.security.azurerm_network_security_rule.allow_ssh_from_internet_monitoring: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowSSH]
+module.security.azurerm_network_security_rule.allow_gateway_to_app: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-app-services-itmarathon-lexxai-prod/securityRules/AllowGatewayToApp]
+module.security.azurerm_network_security_rule.deny_direct_access_to_app: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-app-services-itmarathon-lexxai-prod/securityRules/DenyDirectAccessToApp]
+module.security.azurerm_network_security_rule.allow_ssh_from_internet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/bastion-services-itmarathon-lexxai-prod/securityRules/AllowSSH]
+module.network.azurerm_subnet.bastion_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/bastion-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.public_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/public-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.mysql_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.monitoring_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/monitoring-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.private_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/private-subnet-itmarathon-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.monitoring_subnet_sg_assoc: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/monitoring-subnet-itmarathon-lexxai-prod]      
+module.network.azurerm_private_dns_zone_virtual_network_link.mysql: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com/virtualNetworkLinks/mysqldnslink]
+module.security.azurerm_subnet_network_security_group_association.bastion_subnet_sg_assoc: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/bastion-subnet-itmarathon-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.mysql_subnet_sg_assoc: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.public_subnet_sg_assoc: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/public-subnet-itmarathon-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.private_subnet_sg_assoc: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/private-subnet-itmarathon-lexxai-prod]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.monitoring.azurerm_linux_virtual_machine.monitoring_vm will be created
+  + resource "azurerm_linux_virtual_machine" "monitoring_vm" {
+      + admin_username                                         = "azureuser"
+      + allow_extension_operations                             = true
+      + bypass_platform_safety_checks_on_user_schedule_enabled = false
+      + computer_name                                          = (known after apply)
+      + custom_data                                            = (sensitive value)
+      + disable_password_authentication                        = true
+      + disk_controller_type                                   = (known after apply)
+      + extensions_time_budget                                 = "PT1H30M"
+      + id                                                     = (known after apply)
+      + location                                               = "northeurope"
+      + max_bid_price                                          = -1
+      + name                                                   = "mon-vm-itmarathon-lexxai-prod"
+      + network_interface_ids                                  = (known after apply)
+      + patch_assessment_mode                                  = "ImageDefault"
+      + patch_mode                                             = "ImageDefault"
+      + platform_fault_domain                                  = -1
+      + priority                                               = "Regular"
+      + private_ip_address                                     = (known after apply)
+      + private_ip_addresses                                   = (known after apply)
+      + provision_vm_agent                                     = true
+      + public_ip_address                                      = (known after apply)
+      + public_ip_addresses                                    = (known after apply)
+      + resource_group_name                                    = "rg-itmarathon-lexxai-prod"
+      + size                                                   = "Standard_B1s"
+      + virtual_machine_id                                     = (known after apply)
+      + vm_agent_platform_updates_enabled                      = false
+
+      + admin_ssh_key {
+          + public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDoRoFHwpPBVRESmj+U4H5Eebtm5BKFm008NC5dxhFR29DfMBRhIeER274sSnC7vdoAGZbHR4d7712vwizd0dcS+sis5K1x+EvPq824/dNU/nt7VXwSxF7QvT3trEpu1NlNP8svIgE5wmOpjskgj6SJeR3e8YadHBA9ppvnPJoiiPK4uArKp3Gn45rYzN8WxgUfRFOki8W74N/ym3CkOpnKX0MTi7pVI3CY0JSrSY2fpGQjwf7ImkY+6D6FdtvEdk1L7L0Kp3TLddCSjzu0JqqM6Zhbt5VPAit0zYz+aG7fOylHhA0yyEHJH7bJsIGWZMsobGwG5qehip3FOcT4Pn1P7E+u60nmBtcG+2LM57aU/92z7WY+FcouCTEgxT8h8GWAc6k5pKeY3xeX9wvtZkyxLlTttyFSpMAc1lKKYVA5UqpKShwgG/TLVMRSDyDgF3LqSESjJEZ68+yPW1azrn33OyU4Uq5SKLMrhnn9TAb6ux1Wj9kdBgXpWITbfY8iV1c= lexxai@LENOVO"
+          + username   = "azureuser"
+        }
+
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + name                      = "osdisk-monitoring-vm-itmarathon-lexxai-prod"
+          + storage_account_type      = "Standard_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "debian-11"
+          + publisher = "Debian"
+          + sku       = "11"
+          + version   = "latest"
+        }
+
+      + termination_notification (known after apply)
+    }
+
+  # module.monitoring.azurerm_network_interface.monitoring_nic will be created
+  + resource "azurerm_network_interface" "monitoring_nic" {
+      + accelerated_networking_enabled = (known after apply)
+      + applied_dns_servers            = (known after apply)
+      + dns_servers                    = (known after apply)
+      + enable_accelerated_networking  = (known after apply)
+      + enable_ip_forwarding           = (known after apply)
+      + id                             = (known after apply)
+      + internal_domain_name_suffix    = (known after apply)
+      + ip_forwarding_enabled          = (known after apply)
+      + location                       = "northeurope"
+      + mac_address                    = (known after apply)
+      + name                           = "mon-nic-itmarathon-lexxai-prod"
+      + private_ip_address             = (known after apply)
+      + private_ip_addresses           = (known after apply)
+      + resource_group_name            = "rg-itmarathon-lexxai-prod"
+      + virtual_machine_id             = (known after apply)
+
+      + ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + name                                               = "internal"
+          + primary                                            = (known after apply)
+          + private_ip_address                                 = (known after apply)
+          + private_ip_address_allocation                      = "Dynamic"
+          + private_ip_address_version                         = "IPv4"
+          + public_ip_address_id                               = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-lexxai-prod"
+          + subnet_id                                          = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/monitoring-subnet-itmarathon-lexxai-prod"
+        }
+    }
+
+  # module.security.azurerm_network_security_rule.allow_http_from_internet_monitoring will be updated in-place
+  ~ resource "azurerm_network_security_rule" "allow_http_from_internet_monitoring" {
+        id                                         = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTP"
+        name                                       = "AllowHTTP"
+      ~ source_address_prefixes                    = [
+          - "0.0.0.0/0",
+        ]
+        # (16 unchanged attributes hidden)
+    }
+
+  # module.security.azurerm_network_security_rule.allow_http_https_from_allowed_ips will be updated in-place
+  ~ resource "azurerm_network_security_rule" "allow_http_https_from_allowed_ips" {
+        id                                         = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-lb-services-itmarathon-lexxai-prod/securityRules/AllowHTTPandHTTPSFromAllowedIPs"
+        name                                       = "AllowHTTPandHTTPSFromAllowedIPs"
+      ~ source_address_prefixes                    = [
+          - "0.0.0.0/0",
+        ]
+        # (16 unchanged attributes hidden)
+    }
+
+  # module.security.azurerm_network_security_rule.allow_https_from_internet_monitoring will be updated in-place
+  ~ resource "azurerm_network_security_rule" "allow_https_from_internet_monitoring" {
+        id                                         = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTPS"
+        name                                       = "AllowHTTPS"
+      ~ source_address_prefixes                    = [
+          - "0.0.0.0/0",
+        ]
+        # (16 unchanged attributes hidden)
+    }
+
+  # module.security.azurerm_network_security_rule.allow_ssh_from_internet will be updated in-place
+  ~ resource "azurerm_network_security_rule" "allow_ssh_from_internet" {
+        id                                         = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/bastion-services-itmarathon-lexxai-prod/securityRules/AllowSSH"
+        name                                       = "AllowSSH"
+      ~ source_address_prefixes                    = [
+          - "0.0.0.0/0",
+        ]
+        # (16 unchanged attributes hidden)
+    }
+
+  # module.security.azurerm_network_security_rule.allow_ssh_from_internet_monitoring will be updated in-place
+  ~ resource "azurerm_network_security_rule" "allow_ssh_from_internet_monitoring" {
+        id                                         = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowSSH"
+        name                                       = "AllowSSH"
+      ~ source_address_prefixes                    = [
+          - "0.0.0.0/0",
+        ]
+        # (16 unchanged attributes hidden)
+    }
+
+Plan: 2 to add, 5 to change, 0 to destroy.
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration. 
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically  
+│ suggests to use it as part of an error message.
+╵
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
 </details>
 
@@ -2129,8 +2309,58 @@ terraform apply -var-file=terraform.tfvars -target=module.monitoring
   <summary>Click to expand result of command</summary>
 
 ```
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.security.azurerm_network_security_rule.allow_ssh_from_internet_monitoring: Modifying... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowSSH]
+module.security.azurerm_network_security_rule.allow_http_https_from_allowed_ips: Modifying... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-lb-services-itmarathon-lexxai-prod/securityRules/AllowHTTPandHTTPSFromAllowedIPs]
+module.security.azurerm_network_security_rule.allow_ssh_from_internet: Modifying... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/bastion-services-itmarathon-lexxai-prod/securityRules/AllowSSH]
+module.security.azurerm_network_security_rule.allow_https_from_internet_monitoring: Modifying... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTPS]
+module.security.azurerm_network_security_rule.allow_http_from_internet_monitoring: Modifying... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTP]
+module.security.azurerm_network_security_rule.allow_ssh_from_internet_monitoring: Modifications complete after 3s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowSSH]
+module.security.azurerm_network_security_rule.allow_ssh_from_internet: Modifications complete after 3s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/bastion-services-itmarathon-lexxai-prod/securityRules/AllowSSH]
+module.security.azurerm_network_security_rule.allow_http_from_internet_monitoring: Modifications complete after 3s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTP]
+module.security.azurerm_network_security_rule.allow_http_https_from_allowed_ips: Modifications complete after 3s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-lb-services-itmarathon-lexxai-prod/securityRules/AllowHTTPandHTTPSFromAllowedIPs]
+module.security.azurerm_network_security_rule.allow_https_from_internet_monitoring: Modifications complete after 4s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-lexxai-prod/securityRules/AllowHTTPS]       
+module.monitoring.azurerm_network_interface.monitoring_nic: Creating...
+module.monitoring.azurerm_network_interface.monitoring_nic: Still creating... [10s elapsed]
+module.monitoring.azurerm_network_interface.monitoring_nic: Creation complete after 12s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/networkInterfaces/mon-nic-itmarathon-lexxai-prod]
+module.monitoring.azurerm_linux_virtual_machine.monitoring_vm: Creating...
+module.monitoring.azurerm_linux_virtual_machine.monitoring_vm: Still creating... [10s elapsed]
+module.monitoring.azurerm_linux_virtual_machine.monitoring_vm: Still creating... [20s elapsed]
+module.monitoring.azurerm_linux_virtual_machine.monitoring_vm: Creation complete after 20s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Compute/virtualMachines/mon-vm-itmarathon-lexxai-prod]
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully    
+│ updated. Run the following command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when      
+│ Terraform specifically suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 2 added, 5 changed, 0 destroyed.
+
+Outputs:
+
+email_sender_domain = "..................azurecomm.net"
+email_service_domain = "AzureManagedDomain"
+monitoring_vm_public_ip = ""
+mysql_server_fqdn = "marathon-itmarathon-lexxai-prod.mysql.database.azure.com"
+mysql_subnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod"
+resource_group_name = "rg-itmarathon-lexxai-prod"
+smtp_password = <sensitive>
+smtp_username = "marathon-communication-service-itmarathon-lexxai-prod.................."
+storage_account_name = "stitmarathonlexxaiprod"
+vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 ```
 </details>
+
+![mon](image-9.png)
 
 ### 10. Grafana Dashboard (11_grafana_dashboard)
 
@@ -2152,5 +2382,6 @@ terraform apply -var-file=terraform.tfvars -target=module.grafana_dashboard
   <summary>Click to expand result of command</summary>
 
 ```
+
 ```
 </details>
