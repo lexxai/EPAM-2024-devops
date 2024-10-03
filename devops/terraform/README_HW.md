@@ -1861,7 +1861,190 @@ $ terraform plan -var-file=terraform.tfvars -target=module.app_python
   <summary>Click to expand result of command</summary>
 
 ```
+module.email.azuread_application.smtp_auth_app: Refreshing state... [id=/applications/68a6753d-72b1-4a5e-8453-f6db36771585]
+module.email.data.azurerm_client_config.current: Reading...
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod]
+module.email.data.azurerm_client_config.current: Read complete after 0s [id=Y2xpZW50Q29uZmlncy9jbGllbnRJZD0wNGIwNzc5NS04ZGRiLTQ2MWEtYmJlZS0wMmY5ZTFiZjdiNDY7b2JqZWN0SWQ9NDNmMTU1ZTctZWNkYS00N2Q0LTk0YTgtOTViMTRhMDI1MjUyO3N1YnNjcmlwdGlvbklkPWEwNmEzM2M5LTA4ZjEtNGRmZS04NWZkLWY2MTgxNTBjOGY5NTt0ZW5hbnRJZD1mMGUwZDY3Yy1iMDFmLTRmMzktODQ0Mi0xYTU0MzMyOGZkZjI=]
+module.network.azurerm_public_ip.public_ips["monitoring"]: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-lexxai-prod]
+module.email.azurerm_communication_service.marathon_communication_service: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Communication/communicationServices/marathon-communication-service-itmarathon-lexxai-prod]
+module.network.azurerm_private_dns_zone.mysql: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com]
+module.network.azurerm_public_ip.public_ips["bastion"]: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-lexxai-prod]
+module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod]
+module.email.azuread_application_password.smtp_auth_secret: Refreshing state... [id=68a6753d-72b1-4a5e-8453-f6db36771585/password/78324be8-95a0-44dc-afcb-fc3a044f24c9]
+module.network.azurerm_subnet.mysql_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.bastion_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/bastion-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.private_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/private-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.monitoring_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/monitoring-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_subnet.public_subnet: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/public-subnet-itmarathon-lexxai-prod]
+module.network.azurerm_private_dns_zone_virtual_network_link.mysql: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/privateDnsZones/privatelink.mysql.database.azure.com/virtualNetworkLinks/mysqldnslink]
+module.database.azurerm_mysql_flexible_server.marathon_mysql: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.DBforMySQL/flexibleServers/marathon-itmarathon-lexxai-prod]
+module.storage.azurerm_storage_account.storage: Refreshing state... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Storage/storageAccounts/stitmarathonlexxaiprod]
 
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.app_python.azurerm_linux_web_app.python_app will be created
+  + resource "azurerm_linux_web_app" "python_app" {
+      + app_settings                                   = {
+          + "APP_CONFIG__ACCESS_TOKEN__RESET_PASSWORD_TOKEN_SECRET" = "secret"
+          + "APP_CONFIG__ACCESS_TOKEN__VERIFICATION_TOKEN_SECRET"   = "secret1"
+          + "APP_CONFIG__DB__ALEMBIC_URL"                           = (sensitive value)
+          + "APP_CONFIG__DB__ECHO"                                  = "TRUE"
+          + "APP_CONFIG__DB__URL"                                   = (sensitive value)
+          + "APP_CONFIG__EMAIL_CONNECTION_STRING"                   = (sensitive value)
+          + "AzureBlobStorageConfig__ConnectionString"              = (sensitive value)
+          + "ConnectionStrings__DefaultConnection"                  = (sensitive value)
+          + "MYSQL_DATABASE_NAME"                                   = "marathon-db-itmarathon-lexxai-prod"
+          + "MYSQL_PASSWORD"                                        = (sensitive value)
+          + "MYSQL_SERVER_NAME"                                     = "marathon-itmarathon-lexxai-prod"
+          + "MYSQL_USERNAME"                                        = (sensitive value)
+          + "PYTHON_ENABLE_GUNICORN_MULTIWORKERS"                   = "true"
+          + "SCM_DO_BUILD_DURING_DEPLOYMENT"                        = "true"
+          + "SMTP_HOST"                                             = "smtp.azurecomm.net"
+          + "SMTP_PASSWORD"                                         = (sensitive value)
+          + "SMTP_PORT"                                             = "587"
+          + "SMTP_USERNAME"                                         = "marathon-communication-service-itmarathon-lexxai-prod.65b6ed14-a94b-41ca-ba86-63d422c5364f.f0e0d67c-b01f-4f39-8442-1a543328fdf2"
+        }
+      + client_affinity_enabled                        = false
+      + client_certificate_enabled                     = false
+      + client_certificate_mode                        = "Required"
+      + custom_domain_verification_id                  = (sensitive value)
+      + default_hostname                               = (known after apply)
+      + enabled                                        = true
+      + ftp_publish_basic_authentication_enabled       = false
+      + hosting_environment_id                         = (known after apply)
+      + https_only                                     = true
+      + id                                             = (known after apply)
+      + key_vault_reference_identity_id                = (known after apply)
+      + kind                                           = (known after apply)
+      + location                                       = "northeurope"
+      + name                                           = "python-v4-itmarathon-lexxai-prod"
+      + outbound_ip_address_list                       = (known after apply)
+      + outbound_ip_addresses                          = (known after apply)
+      + possible_outbound_ip_address_list              = (known after apply)
+      + possible_outbound_ip_addresses                 = (known after apply)
+      + public_network_access_enabled                  = true
+      + resource_group_name                            = "rg-itmarathon-lexxai-prod"
+      + service_plan_id                                = (known after apply)
+      + site_credential                                = (sensitive value)
+      + virtual_network_subnet_id                      = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/public-subnet-itmarathon-lexxai-prod"
+      + webdeploy_publish_basic_authentication_enabled = false
+      + zip_deploy_file                                = (known after apply)
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + logs {
+          + detailed_error_messages = false
+          + failed_request_tracing  = false
+
+          + http_logs {
+              + file_system {
+                  + retention_in_days = 3
+                  + retention_in_mb   = 35
+                }
+            }
+        }
+
+      + site_config {
+          + always_on                               = false
+          + container_registry_use_managed_identity = false
+          + default_documents                       = (known after apply)
+          + detailed_error_logging_enabled          = (known after apply)
+          + ftps_state                              = "FtpsOnly"
+          + health_check_eviction_time_in_min       = (known after apply)
+          + http2_enabled                           = false
+          + ip_restriction_default_action           = "Deny"
+          + linux_fx_version                        = (known after apply)
+          + load_balancing_mode                     = "LeastRequests"
+          + local_mysql_enabled                     = false
+          + managed_pipeline_mode                   = "Integrated"
+          + minimum_tls_version                     = "1.2"
+          + remote_debugging_enabled                = false
+          + remote_debugging_version                = (known after apply)
+          + scm_ip_restriction_default_action       = "Allow"
+          + scm_minimum_tls_version                 = "1.2"
+          + scm_type                                = (known after apply)
+          + scm_use_main_ip_restriction             = false
+          + use_32_bit_worker                       = true
+          + vnet_route_all_enabled                  = true
+          + websockets_enabled                      = false
+          + worker_count                            = 1
+
+          + application_stack {
+              + docker_registry_password = (sensitive value)
+              + docker_registry_url      = (known after apply)
+              + docker_registry_username = (known after apply)
+              + python_version           = "3.11"
+            }
+
+          + cors {
+              + allowed_origins     = [
+                  + "*",
+                ]
+              + support_credentials = false
+            }
+
+          + ip_restriction {
+              + action      = "Allow"
+              + name        = "AzureDevOps"
+              + priority    = 160
+              + service_tag = "AzureDevOps"
+            }
+        }
+    }
+
+  # module.app_python.azurerm_service_plan.python_plan will be created
+  + resource "azurerm_service_plan" "python_plan" {
+      + id                           = (known after apply)
+      + kind                         = (known after apply)
+      + location                     = "northeurope"
+      + maximum_elastic_worker_count = (known after apply)
+      + name                         = "plan-python-itmarathon-lexxai-prod"
+      + os_type                      = "Linux"
+      + per_site_scaling_enabled     = false
+      + reserved                     = (known after apply)
+      + resource_group_name          = "rg-itmarathon-lexxai-prod"
+      + sku_name                     = "B1"
+      + worker_count                 = (known after apply)
+    }
+
+  # module.storage.azurerm_storage_account.storage will be updated in-place
+  ~ resource "azurerm_storage_account" "storage" {
+        id                                 = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Storage/storageAccounts/stitmarathonlexxaiprod"
+        name                               = "stitmarathonlexxaiprod"
+        tags                               = {}
+        # (97 unchanged attributes hidden)
+
+      + network_rules {
+          + bypass         = [
+              + "AzureServices",
+            ]
+          + default_action = "Allow"
+        }
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 2 to add, 1 to change, 0 to destroy.
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration. 
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically  
+│ suggests to use it as part of an error message.
+╵
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 ```
 </details>
 
@@ -1873,6 +2056,52 @@ $ terraform apply -var-file=terraform.tfvars -target=module.app_python
   <summary>Click to expand result of command</summary>
 
 ```
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.app_python.azurerm_service_plan.python_plan: Creating...
+module.storage.azurerm_storage_account.storage: Modifying... [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Storage/storageAccounts/stitmarathonlexxaiprod]
+module.app_python.azurerm_service_plan.python_plan: Still creating... [10s elapsed]
+module.storage.azurerm_storage_account.storage: Still modifying... [id=/subscriptions/a06a33c9-08f1-4dfe-85fd-...storageAccounts/stitmarathonlexxaiprod, 10s elapsed]
+module.storage.azurerm_storage_account.storage: Modifications complete after 17s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Storage/storageAccounts/stitmarathonlexxaiprod]
+module.app_python.azurerm_service_plan.python_plan: Creation complete after 19s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Web/serverFarms/plan-python-itmarathon-lexxai-prod]
+module.app_python.azurerm_linux_web_app.python_app: Creating...
+module.app_python.azurerm_linux_web_app.python_app: Still creating... [10s elapsed]
+module.app_python.azurerm_linux_web_app.python_app: Still creating... [20s elapsed]
+module.app_python.azurerm_linux_web_app.python_app: Still creating... [30s elapsed]
+module.app_python.azurerm_linux_web_app.python_app: Still creating... [40s elapsed]
+module.app_python.azurerm_linux_web_app.python_app: Still creating... [50s elapsed]
+module.app_python.azurerm_linux_web_app.python_app: Still creating... [1m0s elapsed]
+module.app_python.azurerm_linux_web_app.python_app: Creation complete after 1m6s [id=/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Web/sites/python-v4-itmarathon-lexxai-prod]
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully    
+│ updated. Run the following command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when      
+│ Terraform specifically suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 2 added, 1 changed, 0 destroyed.
+
+Outputs:
+
+email_sender_domain = "...........azurecomm.net"
+email_service_domain = "AzureManagedDomain"
+monitoring_vm_public_ip = ""
+mysql_server_fqdn = "marathon-itmarathon-lexxai-prod.mysql.database.azure.com"
+mysql_subnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod/subnets/mysql-subnet-itmarathon-lexxai-prod"
+resource_group_name = "rg-itmarathon-lexxai-prod"
+smtp_password = <sensitive>
+smtp_username = "marathon-communication-service-itmarathon-lexxai-prod........"
+storage_account_name = "stitmarathonlexxaiprod"
+vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-lexxai-prod"
 ```
 </details>
 
+![python-app](image-8.png)
