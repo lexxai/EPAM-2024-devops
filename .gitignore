@@ -1,3 +1,5 @@
 devops/terraform/terraform.tfvars
 .*
 
+devops/terraform/terraform.tfstate.backup
+devops/terraform/terraform.tfstate

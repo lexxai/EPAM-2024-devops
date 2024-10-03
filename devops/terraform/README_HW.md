@@ -1,10 +1,45 @@
+# Prepare install
+## Open WSL (Ubuntu) terminal on Windows of VS Code. 
+![alt text](image-1.png)
 
-# Prepare data for fill  devops\terraform\terraform.tfvars
+## Install Terraform
+```
+$ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+$ sudo apt update && sudo apt install terraform
+$ terraform --version
+Terraform v1.9.7
+on linux_amd64
+...
+```
+
+## Install Azure CLI
+```
+$ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
+
+##  Azure CLI logon
+```
+$ az login
+```
+Copy printed URL Link and open it on browser for auth in Azure Portal. After success login, 'az login' should finish work in console automatically.
+
+## Install required packages for scripts.
+
+```
+$ sudo apt install jq
+```
+## Prepare default terraform.tfvars
+```
+$ cd devops\terraform
+$ cp terraform.tfvars.template terraform.tfvars
+```
+
+# Prepare data for fill devops\terraform\terraform.tfvars
 
 ## ./setup_grafana_datasources.sh
 ```
 $ cd devops/terraform
-$ chmod +x 
+$ chmod +x ./setup_grafana_datasources.sh
 $ source ./setup_grafana_datasources.sh
 
 Using Subscription ID: ......
@@ -23,27 +58,41 @@ Ez-8.....................
 
 
 ## ssh keygen
+
+Only RSA supported (bastion):
+
+    Error: - the provided ssh-ed25519 SSH key is not supported. Only RSA SSH keys are supported by Azure
+
 ```
-$ ssh-keygen -t ed25519
-Generating public/private ed25519 key pair.
+$ ssh-keygen
+Generating public/private rsa key pair
 ...
 The key's randomart image is:
-+--[ED25519 256]--+
-|O**+. o* ..      |
-|O=o+..o.=..E     |
-|=o= +o*o++       |
-|.+...B =+.       |
-|  ... ..S..      |
-|        o=       |
-|       ...       |
-|        .        |
-|                 |
++---[RSA 3072]----+
+|       o+*+ +.  .|
+|       +o+*o o ..|
+|      + O+=+. o. |
+|     . XoE.=.oo  |
+|      =.S.. +o . |
+|     . o.o .  .  |
+|      o +        |
+|     . =         |
+|      o          |
 +----[SHA256]-----+
 ```
-$ cat ~/.ssh/id_ed25519.pub
+$ cat ~/.ssh/id_rsa.pub
 ```
-ssh-ed25519 AAAAC3NzaC1lZDI1N....
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQA....
 ```
+
+## Fill data
+Open in editor `terraform.tfvars` file and fill previously printed data or environments.
+For print environment variables can use:
+```
+$ echo $ENVIRONMENT_VAR
+```
+
+# terraform 
 ## terraform init
 ```
 $ terraform init
@@ -57,3 +106,757 @@ Initializing modules...
 ....
 ```
 ![alt text](image.png)
+## Plan and Apply the Infrastructure by Modules
+### 1. Network (01_network)
+
+```
+$ terraform plan -var-file=terraform.tfvars -target=module.network
+```
+```
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.network.azurerm_private_dns_zone.mysql will be created
+  + resource "azurerm_private_dns_zone" "mysql" {
+      + id                                                    = (known after apply)
+      + max_number_of_record_sets                             = (known after apply)
+      + max_number_of_virtual_network_links                   = (known after apply)
+      + max_number_of_virtual_network_links_with_registration = (known after apply)
+      + name                                                  = "privatelink.mysql.database.azure.com"
+      + number_of_record_sets                                 = (known after apply)
+      + resource_group_name                                   = "rg-itmarathon-epam-2024-lexxai-prod"
+
+      + soa_record (known after apply)
+    }
+
+  # module.network.azurerm_private_dns_zone_virtual_network_link.mysql will be created
+  + resource "azurerm_private_dns_zone_virtual_network_link" "mysql" {
+      + id                    = (known after apply)
+      + name                  = "mysqldnslink"
+      + private_dns_zone_name = "privatelink.mysql.database.azure.com"
+      + registration_enabled  = false
+      + resource_group_name   = "rg-itmarathon-epam-2024-lexxai-prod"
+      + virtual_network_id    = (known after apply)
+    }
+
+  # module.network.azurerm_public_ip.public_ips["bastion"] will be created
+  + resource "azurerm_public_ip" "public_ips" {
+      + allocation_method       = "Dynamic"
+      + ddos_protection_mode    = "VirtualNetworkInherited"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "northeurope"
+      + name                    = "pip-bastion-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name     = "rg-itmarathon-epam-2024-lexxai-prod"
+      + sku                     = "Basic"
+      + sku_tier                = "Regional"
+    }
+
+  # module.network.azurerm_public_ip.public_ips["monitoring"] will be created
+  + resource "azurerm_public_ip" "public_ips" {
+      + allocation_method       = "Dynamic"
+      + ddos_protection_mode    = "VirtualNetworkInherited"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "northeurope"
+      + name                    = "pip-monitoring-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name     = "rg-itmarathon-epam-2024-lexxai-prod"
+      + sku                     = "Basic"
+      + sku_tier                = "Regional"
+    }
+
+  # module.network.azurerm_resource_group.rg will be created
+  + resource "azurerm_resource_group" "rg" {
+      + id       = (known after apply)
+      + location = "northeurope"
+      + name     = "rg-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.network.azurerm_subnet.bastion_subnet will be created
+  + resource "azurerm_subnet" "bastion_subnet" {
+      + address_prefixes                               = [
+          + "10.0.6.0/24",
+        ]
+      + default_outbound_access_enabled                = true
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "bastion-subnet-itmarathon-epam-2024-lexxai-prod"
+      + private_endpoint_network_policies              = (known after apply)
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "rg-itmarathon-epam-2024-lexxai-prod"
+      + virtual_network_name                           = "vnet-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.network.azurerm_subnet.monitoring_subnet will be created
+  + resource "azurerm_subnet" "monitoring_subnet" {
+      + address_prefixes                               = [
+          + "10.0.7.0/24",
+        ]
+      + default_outbound_access_enabled                = true
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "monitoring-subnet-itmarathon-epam-2024-lexxai-prod"
+      + private_endpoint_network_policies              = (known after apply)
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "rg-itmarathon-epam-2024-lexxai-prod"
+      + virtual_network_name                           = "vnet-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.network.azurerm_subnet.mysql_subnet will be created
+  + resource "azurerm_subnet" "mysql_subnet" {
+      + address_prefixes                               = [
+          + "10.0.3.0/24",
+        ]
+      + default_outbound_access_enabled                = true
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "mysql-subnet-itmarathon-epam-2024-lexxai-prod"
+      + private_endpoint_network_policies              = (known after apply)
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "rg-itmarathon-epam-2024-lexxai-prod"
+      + service_endpoints                              = [
+          + "Microsoft.Storage",
+        ]
+      + virtual_network_name                           = "vnet-itmarathon-epam-2024-lexxai-prod"
+
+      + delegation {
+          + name = "fs"
+
+          + service_delegation {
+              + actions = [
+                  + "Microsoft.Network/virtualNetworks/subnets/join/action",
+                ]
+              + name    = "Microsoft.DBforMySQL/flexibleServers"
+            }
+        }
+    }
+
+  # module.network.azurerm_subnet.private_subnet will be created
+  + resource "azurerm_subnet" "private_subnet" {
+      + address_prefixes                               = [
+          + "10.0.5.0/24",
+        ]
+      + default_outbound_access_enabled                = true
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "private-subnet-itmarathon-epam-2024-lexxai-prod"
+      + private_endpoint_network_policies              = (known after apply)
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "rg-itmarathon-epam-2024-lexxai-prod"
+      + virtual_network_name                           = "vnet-itmarathon-epam-2024-lexxai-prod"
+
+      + delegation {
+          + name = "app-service-delegation"
+
+          + service_delegation {
+              + actions = [
+                  + "Microsoft.Network/virtualNetworks/subnets/action",
+                ]
+              + name    = "Microsoft.Web/serverFarms"
+            }
+        }
+    }
+
+  # module.network.azurerm_subnet.public_subnet will be created
+  + resource "azurerm_subnet" "public_subnet" {
+      + address_prefixes                               = [
+          + "10.0.4.0/24",
+        ]
+      + default_outbound_access_enabled                = true
+      + enforce_private_link_endpoint_network_policies = (known after apply)
+      + enforce_private_link_service_network_policies  = (known after apply)
+      + id                                             = (known after apply)
+      + name                                           = "public-subnet-itmarathon-epam-2024-lexxai-prod"
+      + private_endpoint_network_policies              = (known after apply)
+      + private_endpoint_network_policies_enabled      = (known after apply)
+      + private_link_service_network_policies_enabled  = (known after apply)
+      + resource_group_name                            = "rg-itmarathon-epam-2024-lexxai-prod"
+      + virtual_network_name                           = "vnet-itmarathon-epam-2024-lexxai-prod"
+
+      + delegation {
+          + name = "app-service-delegation"
+
+          + service_delegation {
+              + actions = [
+                  + "Microsoft.Network/virtualNetworks/subnets/action",
+                ]
+              + name    = "Microsoft.Web/serverFarms"
+            }
+        }
+    }
+
+  # module.network.azurerm_virtual_network.marathon_virtual_network will be created
+  + resource "azurerm_virtual_network" "marathon_virtual_network" {
+      + address_space       = [
+          + "10.0.0.0/16",
+        ]
+      + dns_servers         = (known after apply)
+      + guid                = (known after apply)
+      + id                  = (known after apply)
+      + location            = "northeurope"
+      + name                = "vnet-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + subnet              = (known after apply)
+    }
+
+Plan: 11 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + monitoring_vm_public_ip = (known after apply)
+  + mysql_subnet_id         = (known after apply)
+  + resource_group_name     = "rg-itmarathon-epam-2024-lexxai-prod"
+  + vnet_id                 = (known after apply)
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration.
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically suggests to use it as part 
+│ of an error message.
+╵
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+```
+
+
+```
+$ terraform apply -var-file=terraform.tfvars -target=module.network
+```
+```
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.network.azurerm_private_dns_zone.mysql will be created
+  + resource "azurerm_private_dns_zone" "mysql" {
+      + id                                                    = (known after apply)
+      + max_number_of_record_sets                             = (known after apply)
+      + max_number_of_virtual_network_links                   = (known after apply)
+      + max_number_of_virtual_network_links_with_registration = (known after apply)
+
+    .....
+
+    Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.network.azurerm_resource_group.rg: Creating...
+module.network.azurerm_resource_group.rg: Creation complete after 9s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_private_dns_zone.mysql: Creating...
+module.network.azurerm_public_ip.public_ips["monitoring"]: Creating...
+module.network.azurerm_public_ip.public_ips["bastion"]: Creating...
+module.network.azurerm_virtual_network.marathon_virtual_network: Creating...
+module.network.azurerm_public_ip.public_ips["monitoring"]: Creation complete after 3s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["bastion"]: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_virtual_network.marathon_virtual_network: Creation complete after 6s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod]
+
+...
+
+
+Apply complete! Resources: 11 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+monitoring_vm_public_ip = ""
+mysql_subnet_id = "/subscriptions/......./resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
+resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+vnet_id = "/subscriptions/......../resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
+
+
+```
+
+### 2. Security (02_security)
+```
+$ terraform plan -var-file=terraform.tfvars -target=module.security
+```
+```
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_subnet.monitoring_subnet: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/monitoring-subnet-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_subnet.mysql_subnet: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_subnet.private_subnet: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/private-subnet-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_subnet.bastion_subnet: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/bastion-subnet-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_subnet.public_subnet: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/public-subnet-itmarathon-epam-2024-lexxai-prod]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.security.azurerm_network_security_group.bastion_subnet_sg will be created
+  + resource "azurerm_network_security_group" "bastion_subnet_sg" {
+      + id                  = (known after apply)
+      + location            = "northeurope"
+      + name                = "bastion-services-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + security_rule       = (known after apply)
+    }
+
+  # module.security.azurerm_network_security_group.monitoring_subnet_sg will be created
+  + resource "azurerm_network_security_group" "monitoring_subnet_sg" {
+      + id                  = (known after apply)
+      + location            = "northeurope"
+      + name                = "monitoring-services-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + security_rule       = (known after apply)
+    }
+
+  # module.security.azurerm_network_security_group.mysql_subnet_sg will be created
+  + resource "azurerm_network_security_group" "mysql_subnet_sg" {
+      + id                  = (known after apply)
+      + location            = "northeurope"
+      + name                = "mysql-services-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + security_rule       = (known after apply)
+    }
+
+  # module.security.azurerm_network_security_group.private_subnet_sg will be created
+  + resource "azurerm_network_security_group" "private_subnet_sg" {
+      + id                  = (known after apply)
+      + location            = "northeurope"
+      + name                = "dotnet-app-services-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + security_rule       = (known after apply)
+    }
+
+  # module.security.azurerm_network_security_group.public_subnet_sg will be created
+  + resource "azurerm_network_security_group" "public_subnet_sg" {
+      + id                  = (known after apply)
+      + location            = "northeurope"
+      + name                = "dotnet-lb-services-itmarathon-epam-2024-lexxai-prod"
+      + resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+      + security_rule       = (known after apply)
+    }
+
+  # module.security.azurerm_network_security_rule.allow_gateway_to_app will be created
+  + resource "azurerm_network_security_rule" "allow_gateway_to_app" {
+      + access                      = "Allow"
+      + destination_address_prefix  = "10.0.5.0/24"
+      + destination_port_range      = "443"
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "AllowGatewayToApp"
+      + network_security_group_name = "dotnet-app-services-itmarathon-epam-2024-lexxai-prod"
+      + priority                    = 1001
+      + protocol                    = "Tcp"
+      + resource_group_name         = "rg-itmarathon-epam-2024-lexxai-prod"
+      + source_address_prefix       = "10.0.4.0/24"
+      + source_port_range           = "*"
+    }
+
+  # module.security.azurerm_network_security_rule.allow_http_from_internet_monitoring will be created
+  + resource "azurerm_network_security_rule" "allow_http_from_internet_monitoring" {
+      + access                      = "Allow"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "80"
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "AllowHTTP"
+      + network_security_group_name = "monitoring-services-itmarathon-epam-2024-lexxai-prod"
+      + priority                    = 1002
+      + protocol                    = "Tcp"
+      + resource_group_name         = "rg-itmarathon-epam-2024-lexxai-prod"
+      + source_address_prefixes     = [
+          + "0.0.0.0/0",
+        ]
+      + source_port_range           = "*"
+    }
+
+  # module.security.azurerm_network_security_rule.allow_http_https_from_allowed_ips will be created
+  + resource "azurerm_network_security_rule" "allow_http_https_from_allowed_ips" {
+      + access                      = "Allow"
+      + destination_address_prefix  = "*"
+      + destination_port_ranges     = [
+          + "443",
+          + "80",
+        ]
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "AllowHTTPandHTTPSFromAllowedIPs"
+      + network_security_group_name = "dotnet-lb-services-itmarathon-epam-2024-lexxai-prod"
+      + priority                    = 1002
+      + protocol                    = "Tcp"
+      + resource_group_name         = "rg-itmarathon-epam-2024-lexxai-prod"
+      + source_address_prefixes     = [
+          + "0.0.0.0/0",
+        ]
+      + source_port_range           = "*"
+    }
+
+  # module.security.azurerm_network_security_rule.allow_https_from_internet_monitoring will be created
+  + resource "azurerm_network_security_rule" "allow_https_from_internet_monitoring" {
+      + access                      = "Allow"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "443"
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "AllowHTTPS"
+      + network_security_group_name = "monitoring-services-itmarathon-epam-2024-lexxai-prod"
+      + priority                    = 1003
+      + protocol                    = "Tcp"
+      + resource_group_name         = "rg-itmarathon-epam-2024-lexxai-prod"
+      + source_address_prefixes     = [
+          + "0.0.0.0/0",
+        ]
+      + source_port_range           = "*"
+    }
+
+  # module.security.azurerm_network_security_rule.allow_ssh_from_internet will be created
+  + resource "azurerm_network_security_rule" "allow_ssh_from_internet" {
+      + access                      = "Allow"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "22"
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "AllowSSH"
+      + network_security_group_name = "bastion-services-itmarathon-epam-2024-lexxai-prod"
+      + priority                    = 1001
+      + protocol                    = "Tcp"
+      + resource_group_name         = "rg-itmarathon-epam-2024-lexxai-prod"
+      + source_address_prefixes     = [
+          + "0.0.0.0/0",
+        ]
+      + source_port_range           = "*"
+    }
+
+  # module.security.azurerm_network_security_rule.allow_ssh_from_internet_monitoring will be created
+  + resource "azurerm_network_security_rule" "allow_ssh_from_internet_monitoring" {
+      + access                      = "Allow"
+      + destination_address_prefix  = "*"
+      + destination_port_range      = "22"
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "AllowSSH"
+      + network_security_group_name = "monitoring-services-itmarathon-epam-2024-lexxai-prod"
+      + priority                    = 1001
+      + protocol                    = "Tcp"
+      + resource_group_name         = "rg-itmarathon-epam-2024-lexxai-prod"
+      + source_address_prefixes     = [
+          + "0.0.0.0/0",
+        ]
+      + source_port_range           = "*"
+    }
+
+  # module.security.azurerm_network_security_rule.deny_direct_access_to_app will be created
+  + resource "azurerm_network_security_rule" "deny_direct_access_to_app" {
+      + access                      = "Deny"
+      + destination_address_prefix  = "10.0.5.0/24"
+      + destination_port_range      = "*"
+      + direction                   = "Inbound"
+      + id                          = (known after apply)
+      + name                        = "DenyDirectAccessToApp"
+      + network_security_group_name = "dotnet-app-services-itmarathon-epam-2024-lexxai-prod"
+      + priority                    = 1000
+      + protocol                    = "*"
+      + resource_group_name         = "rg-itmarathon-epam-2024-lexxai-prod"
+      + source_address_prefix       = "Internet"
+      + source_port_range           = "*"
+    }
+
+  # module.security.azurerm_subnet_network_security_group_association.bastion_subnet_sg_assoc will be created
+  + resource "azurerm_subnet_network_security_group_association" "bastion_subnet_sg_assoc" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/bastion-subnet-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.security.azurerm_subnet_network_security_group_association.monitoring_subnet_sg_assoc will be created
+  + resource "azurerm_subnet_network_security_group_association" "monitoring_subnet_sg_assoc" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/monitoring-subnet-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.security.azurerm_subnet_network_security_group_association.mysql_subnet_sg_assoc will be created
+  + resource "azurerm_subnet_network_security_group_association" "mysql_subnet_sg_assoc" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.security.azurerm_subnet_network_security_group_association.private_subnet_sg_assoc will be created
+  + resource "azurerm_subnet_network_security_group_association" "private_subnet_sg_assoc" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/private-subnet-itmarathon-epam-2024-lexxai-prod"
+    }
+
+  # module.security.azurerm_subnet_network_security_group_association.public_subnet_sg_assoc will be created
+  + resource "azurerm_subnet_network_security_group_association" "public_subnet_sg_assoc" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/public-subnet-itmarathon-epam-2024-lexxai-prod"
+    }
+
+Plan: 17 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration.
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically suggests to use it as part 
+│ of an error message.
+╵
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+```
+
+```
+$ terraform apply -var-file=terraform.tfvars -target=module.security
+```
+```
+...
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.security.azurerm_network_security_group.bastion_subnet_sg: Creating...
+module.security.azurerm_network_security_group.private_subnet_sg: Creating...
+module.security.azurerm_network_security_group.mysql_subnet_sg: Creating...
+module.security.azurerm_network_security_group.public_subnet_sg: Creating...
+module.security.azurerm_network_security_group.monitoring_subnet_sg: Creating...
+module.security.azurerm_network_security_group.public_subnet_sg: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-lb-services-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_network_security_group.mysql_subnet_sg: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/mysql-services-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_network_security_group.bastion_subnet_sg: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/bastion-services-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_network_security_group.monitoring_subnet_sg: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.monitoring_subnet_sg_assoc: Creating...
+module.security.azurerm_network_security_rule.allow_https_from_internet_monitoring: Creating...
+module.security.azurerm_subnet_network_security_group_association.public_subnet_sg_assoc: Creating...
+module.security.azurerm_network_security_rule.allow_ssh_from_internet: Creating...
+module.security.azurerm_network_security_rule.allow_http_from_internet_monitoring: Creating...
+module.security.azurerm_subnet_network_security_group_association.mysql_subnet_sg_assoc: Creating...
+module.security.azurerm_network_security_rule.allow_ssh_from_internet_monitoring: Creating...
+module.security.azurerm_network_security_rule.allow_http_https_from_allowed_ips: Creating...
+module.security.azurerm_subnet_network_security_group_association.bastion_subnet_sg_assoc: Creating...
+module.security.azurerm_network_security_group.private_subnet_sg: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-app-services-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_network_security_rule.deny_direct_access_to_app: Creating...
+module.security.azurerm_network_security_rule.allow_ssh_from_internet: Creation complete after 3s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/bastion-services-itmarathon-epam-2024-lexxai-prod/securityRules/AllowSSH]
+module.security.azurerm_subnet_network_security_group_association.private_subnet_sg_assoc: Creating...
+module.security.azurerm_network_security_rule.allow_http_https_from_allowed_ips: Creation complete after 3s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-lb-services-itmarathon-epam-2024-lexxai-prod/securityRules/AllowHTTPandHTTPSFromAllowedIPs]
+module.security.azurerm_network_security_rule.allow_gateway_to_app: Creating...
+module.security.azurerm_network_security_rule.allow_ssh_from_internet_monitoring: Creation complete after 3s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-epam-2024-lexxai-prod/securityRules/AllowSSH]
+module.security.azurerm_network_security_rule.deny_direct_access_to_app: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-app-services-itmarathon-epam-2024-lexxai-prod/securityRules/DenyDirectAccessToApp]
+module.security.azurerm_network_security_rule.allow_https_from_internet_monitoring: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-epam-2024-lexxai-prod/securityRules/AllowHTTPS]
+module.security.azurerm_network_security_rule.allow_http_from_internet_monitoring: Creation complete after 4s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/monitoring-services-itmarathon-epam-2024-lexxai-prod/securityRules/AllowHTTP]
+module.security.azurerm_network_security_rule.allow_gateway_to_app: Creation complete after 3s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkSecurityGroups/dotnet-app-services-itmarathon-epam-2024-lexxai-prod/securityRules/AllowGatewayToApp]
+module.security.azurerm_subnet_network_security_group_association.public_subnet_sg_assoc: Creation complete after 7s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/public-subnet-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.monitoring_subnet_sg_assoc: Still creating... [10s elapsed]
+module.security.azurerm_subnet_network_security_group_association.mysql_subnet_sg_assoc: Still creating... [10s elapsed]
+module.security.azurerm_subnet_network_security_group_association.bastion_subnet_sg_assoc: Still creating... [10s elapsed]
+module.security.azurerm_subnet_network_security_group_association.private_subnet_sg_assoc: Still creating... [10s elapsed]
+module.security.azurerm_subnet_network_security_group_association.monitoring_subnet_sg_assoc: Creation complete after 13s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/monitoring-subnet-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.mysql_subnet_sg_assoc: Creation complete after 20s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.bastion_subnet_sg_assoc: Still creating... [20s elapsed]
+module.security.azurerm_subnet_network_security_group_association.private_subnet_sg_assoc: Still creating... [20s elapsed]
+module.security.azurerm_subnet_network_security_group_association.bastion_subnet_sg_assoc: Creation complete after 26s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/bastion-subnet-itmarathon-epam-2024-lexxai-prod]
+module.security.azurerm_subnet_network_security_group_association.private_subnet_sg_assoc: Creation complete after 29s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/private-subnet-itmarathon-epam-2024-lexxai-prod]
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully updated. Run the following   
+│ command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically
+│ suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 17 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+monitoring_vm_public_ip = ""
+mysql_subnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
+resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
+```
+
+### 3. Bastion (03_bastion)
+
+```
+$ terraform plan -var-file=terraform.tfvars -target=module.bastion
+```
+```
+module.network.azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["monitoring"]: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-monitoring-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_public_ip.public_ips["bastion"]: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_virtual_network.marathon_virtual_network: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod]
+module.network.azurerm_subnet.bastion_subnet: Refreshing state... [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/bastion-subnet-itmarathon-epam-2024-lexxai-prod]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.bastion.azurerm_linux_virtual_machine.bastion will be created
+  + resource "azurerm_linux_virtual_machine" "bastion" {
+      + admin_username                                         = "azureuser"
+      + allow_extension_operations                             = true
+      + bypass_platform_safety_checks_on_user_schedule_enabled = false
+      + computer_name                                          = (known after apply)
+      + custom_data                                            = (sensitive value)
+      + disable_password_authentication                        = true
+      + disk_controller_type                                   = (known after apply)
+      + extensions_time_budget                                 = "PT1H30M"
+      + id                                                     = (known after apply)
+      + location                                               = "northeurope"
+      + max_bid_price                                          = -1
+      + name                                                   = "bastion-itmarathon-epam-2024-lexxai-prod"
+      + network_interface_ids                                  = (known after apply)
+      + patch_assessment_mode                                  = "ImageDefault"
+      + patch_mode                                             = "ImageDefault"
+      + platform_fault_domain                                  = -1
+      + priority                                               = "Regular"
+      + private_ip_address                                     = (known after apply)
+      + private_ip_addresses                                   = (known after apply)
+      + provision_vm_agent                                     = true
+      + public_ip_address                                      = (known after apply)
+      + public_ip_addresses                                    = (known after apply)
+      + resource_group_name                                    = "rg-itmarathon-epam-2024-lexxai-prod"
+      + size                                                   = "Standard_B1s"
+      + virtual_machine_id                                     = (known after apply)
+      + vm_agent_platform_updates_enabled                      = false
+
+      + admin_ssh_key {
+          + public_key = "ssh-rsa AAAAB3NzaC1yc2.........."
+          + username   = "azureuser"
+        }
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + name                      = "osdisk-itmarathon-epam-2024-lexxai-prod"
+          + storage_account_type      = "Standard_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "debian-11"
+          + publisher = "Debian"
+          + sku       = "11"
+          + version   = "latest"
+        }
+
+      + termination_notification (known after apply)
+    }
+
+  # module.bastion.azurerm_network_interface.bastion_nic will be created
+  + resource "azurerm_network_interface" "bastion_nic" {
+      + accelerated_networking_enabled = (known after apply)
+      + applied_dns_servers            = (known after apply)
+      + dns_servers                    = (known after apply)
+      + enable_accelerated_networking  = (known after apply)
+      + enable_ip_forwarding           = (known after apply)
+      + id                             = (known after apply)
+      + internal_domain_name_suffix    = (known after apply)
+      + ip_forwarding_enabled          = (known after apply)
+      + location                       = "northeurope"
+      + mac_address                    = (known after apply)
+      + name                           = "nic-bastion-itmarathon-epam-2024-lexxai-prod"
+      + private_ip_address             = (known after apply)
+      + private_ip_addresses           = (known after apply)
+      + resource_group_name            = "rg-itmarathon-epam-2024-lexxai-prod"
+      + virtual_machine_id             = (known after apply)
+
+      + ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + name                                               = "internal"
+          + primary                                            = (known after apply)
+          + private_ip_address                                 = (known after apply)
+          + private_ip_address_allocation                      = "Dynamic"
+          + private_ip_address_version                         = "IPv4"
+          + public_ip_address_id                               = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/publicIPAddresses/pip-bastion-itmarathon-epam-2024-lexxai-prod"
+          + subnet_id                                          = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/bastion-subnet-itmarathon-epam-2024-lexxai-prod"
+        }
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Resource targeting is in effect
+│
+│ You are creating a plan with the -target option, which means that the result of this plan may not represent all of the changes requested by the current configuration.
+│
+│ The -target option is not for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically suggests to use it as part 
+│ of an error message.
+╵
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+```
+
+```
+$ terraform apply -var-file=terraform.tfvars -target=module.bastion
+```
+
+```
+...
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+module.bastion.azurerm_network_interface.bastion_nic: Creating...
+module.bastion.azurerm_network_interface.bastion_nic: Still creating... [10s elapsed]
+module.bastion.azurerm_network_interface.bastion_nic: Creation complete after 17s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/networkInterfaces/nic-bastion-itmarathon-epam-2024-lexxai-prod]
+module.bastion.azurerm_linux_virtual_machine.bastion: Creating...
+module.bastion.azurerm_linux_virtual_machine.bastion: Still creating... [10s elapsed]
+module.bastion.azurerm_linux_virtual_machine.bastion: Still creating... [20s elapsed]
+module.bastion.azurerm_linux_virtual_machine.bastion: Still creating... [30s elapsed]
+module.bastion.azurerm_linux_virtual_machine.bastion: Still creating... [40s elapsed]
+module.bastion.azurerm_linux_virtual_machine.bastion: Still creating... [50s elapsed]
+module.bastion.azurerm_linux_virtual_machine.bastion: Still creating... [1m0s elapsed]
+module.bastion.azurerm_linux_virtual_machine.bastion: Creation complete after 1m7s [id=/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Compute/virtualMachines/bastion-itmarathon-epam-2024-lexxai-prod]
+╷
+│ Warning: Applied changes may be incomplete
+│
+│ The plan was created with the -target option in effect, so some changes requested in the configuration may have been ignored and the output values may not be fully updated. Run the following   
+│ command to verify that no other changes are pending:
+│     terraform plan
+│
+│ Note that the -target option is not suitable for routine use, and is provided only for exceptional situations such as recovering from errors or mistakes, or when Terraform specifically
+│ suggests to use it as part of an error message.
+╵
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+monitoring_vm_public_ip = ""
+mysql_subnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod/subnets/mysql-subnet-itmarathon-epam-2024-lexxai-prod"
+resource_group_name = "rg-itmarathon-epam-2024-lexxai-prod"
+vnet_id = "/subscriptions/................/resourceGroups/rg-itmarathon-epam-2024-lexxai-prod/providers/Microsoft.Network/virtualNetworks/vnet-itmarathon-epam-2024-lexxai-prod"
+
+```
