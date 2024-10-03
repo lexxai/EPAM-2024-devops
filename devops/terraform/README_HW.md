@@ -1583,6 +1583,8 @@ vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lex
 ```
 </details>
 
+![dot-net-app-service](image-5.png)
+
 ### 7. Email (08_email)
 ```
 az provider register --namespace Microsoft.Communication
