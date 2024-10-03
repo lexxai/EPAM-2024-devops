@@ -1854,7 +1854,7 @@ vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lex
 
 ### 8. App Python (09_app_python)
 ```
-$ terraform plan -var-file=terraform.tfvars -target=module.app_python
+terraform plan -var-file=terraform.tfvars -target=module.app_python
 ```
 
 <details>
@@ -2049,7 +2049,7 @@ Note: You didn't use the -out option to save this plan, so Terraform can't guara
 </details>
 
 ```
-$ terraform apply -var-file=terraform.tfvars -target=module.app_python
+terraform apply -var-file=terraform.tfvars -target=module.app_python
 ```
 
 <details>
@@ -2105,3 +2105,52 @@ vnet_id = "/subscriptions/...................../resourceGroups/rg-itmarathon-lex
 </details>
 
 ![python-app](image-8.png)
+
+
+### 9. Monitoring (10_monitoring)
+
+```
+terraform plan -var-file=terraform.tfvars -target=module.monitoring
+```
+
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
+```
+terraform apply -var-file=terraform.tfvars -target=module.monitoring
+
+```
+
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
+### 10. Grafana Dashboard (11_grafana_dashboard)
+
+```
+terraform plan -var-file=terraform.tfvars -target=module.grafana_dashboard
+```
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
+
+```
+terraform apply -var-file=terraform.tfvars -target=module.grafana_dashboard
+```
+
+<details>
+  <summary>Click to expand result of command</summary>
+
+```
+```
+</details>
