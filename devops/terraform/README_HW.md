@@ -2503,5 +2503,11 @@ grafana_user     = "admin"
 Grafana login:
 ![Grafana login](image-10.png)
 
-Grafana Dash Board:
+Grafana Dash Board - Azure Virtual Machine:
 ![grafana dash board](image-11.png)
+
+Grafana Dash Board - Azure Cost Analysis:
+![Azure Cost Analysis](image-12.png)
+
+Grafana Dash Board - Azure Web App Services:
+![Azure Web App Services](image-13.png)
