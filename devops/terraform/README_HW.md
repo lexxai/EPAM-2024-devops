@@ -2511,3 +2511,66 @@ Grafana Dash Board - Azure Cost Analysis:
 
 Grafana Dash Board - Azure Web App Services:
 ![Azure Web App Services](image-13.png)
+
+
+### Grafana ALERT
+
+![alt text](image-14.png)
+
+![alt text](image-15.png)
+
+![alt text](image-16.png)
+
+
+
+```
+
+Alerting for Telegram in 3 steps
+
+Step1. Register Your Telegram channel for Alert notifications
+BOT API Token, Chat ID
+
+Step2. Setup Contact Point for notification in Grafana Server
+Input the credentials into Home > Alerting > Contact points and press Test / Save contact point
+
+Step3. Setup Alert Rule for Cost notification in Grafana Server
+replace {subscription-id} in the link below on your subscription-id in the link below
+1. Name: Баланс рахунку
+2. A: Azure Cost Analysis Infinity
+/ Type: JSON
+/ Parser: Backend
+/ Source: URL
+/ Format:Table
+/ Method: POST
+/ URL:https://management.azure.com/subscriptions/{subscription-id}/providers/Microsoft.CostManagement/query?api-version=2023-11-01
+
+3. A: URL options / Body Content Type JSON / Body Content:
+
+{
+"type": "Usage",
+"timeframe": "Custom",
+"timePeriod": {
+   "from": "$(__from:date:YYYY-MM-DD)",
+   "to": "$( __to:date:YYYY-MM-DD)"
+  },
+"dataset":{
+   "granutarity": "Monthly",
+   "aggregation": {
+   "totalCost": {
+    "name": "Cost",
+   "function": "Sum"
+   }
+  }
+ }
+} 
+
+
+Rows/Root:
+properties.rows[*]
+Cotumns-optional:
+Selector 0 as Cost format as Number
+Selector 1 as Cost format as Number
+Summarize: sum(Cost)
+Summarize Allas: TotalCost
+
+```
