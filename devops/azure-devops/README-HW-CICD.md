@@ -1,17 +1,20 @@
 
-2. Create a Project
+# 2. Create a Project
 
 ![settings](image.png)
 
-Pipelines:
+## Pipelines:
 ![pipelines](image-1.png)
 
-Agents:
+### Agents:
 ![agents](image-9.png)
 
-It MUST BE after activation:
+### It MUST BE after activation:
 
 ![alt text](image-10.png)
+
+### Run Pipelines:
+![alt text](image-11.png)
 
 
 ## Release Pipelines:
