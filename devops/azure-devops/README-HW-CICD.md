@@ -55,7 +55,22 @@ $(System.DefaultWorkingDirectory)/_Frontend-App-CI/frontend/browser
 ![alt text](image-13.png)
 
 
-### Result of deploy 
+## Result of deploy 
 
 ![alt text](image-12.png)
 
+
+For the frontend application, you can find out the URL by running the following command:
+
+```
+$ az storage account show -n stitmarathonlexxaiprod --query "primaryEndpoints.web" --output tsv
+https://stitmarathonlexxaiprod.z16.web.core.windows.net/
+```
+
+### Web site:
+
+Main page:
+![alt text](image-14.png)
+
+Login (Home work task):
+![alt text](image-15.png)
