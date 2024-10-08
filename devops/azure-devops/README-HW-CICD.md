@@ -9,6 +9,10 @@ Pipelines:
 Agents:
 ![agents](image-9.png)
 
+It MUST BE after activation:
+
+![alt text](image-10.png)
+
 
 ## Release Pipelines:
 ![release pl](image-2.png)
