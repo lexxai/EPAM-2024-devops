@@ -67,6 +67,16 @@ $ az storage account show -n stitmarathonlexxaiprod --query "primaryEndpoints.we
 https://stitmarathonlexxaiprod.z16.web.core.windows.net/
 ```
 
+
+## Debug
+
+### Python App Service
+#### BASH
+![alt text](image-16.png)
+
+#### LOG stream
+![alt text](image-17.png)
+
 ### Web site:
 
 Main page:
