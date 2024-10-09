@@ -90,6 +90,7 @@ https://stitmarathonlexxaiprod.z16.web.core.windows.net/
 
 Main page (https://stitmarathonlexxaiprod.z16.web.core.windows.net):
 ![alt text](image-14.png)
+![alt text](image-28.png)
 
 Login (Home work task):
 ![alt text](image-15.png)
