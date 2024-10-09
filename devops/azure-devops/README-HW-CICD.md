@@ -95,5 +95,11 @@ Login (Home work task):
 ![alt text](image-15.png)
 
 Test auth Python API:
+Login:
 ![alt text](image-23.png)
 ![alt text](image-24.png)
+
+Register:
+![alt text](image-27.png)
+![alt text](image-25.png)
+![alt text](image-26.png)
