@@ -35,6 +35,7 @@
 ### Frontend Release Pipeline:
 ![alt text](image-3.png)
 ![alt text](image-7.png)
+![alt text](image-20.png)
 
 #### AzureBlob File Copy deploy
 
@@ -58,6 +59,7 @@ $(System.DefaultWorkingDirectory)/_Frontend-App-CI/frontend/browser
 ## Result of deploy 
 
 ![alt text](image-12.png)
+![alt text](image-21.png)
 
 
 For the frontend application, you can find out the URL by running the following command:
@@ -77,9 +79,14 @@ https://stitmarathonlexxaiprod.z16.web.core.windows.net/
 #### LOG stream
 ![alt text](image-17.png)
 
+![alt text](image-18.png)
+
+#### API Docs
+![alt text](image-19.png)
+
 ### Web site:
 
-Main page:
+Main page (https://stitmarathonlexxaiprod.z16.web.core.windows.net):
 ![alt text](image-14.png)
 
 Login (Home work task):
