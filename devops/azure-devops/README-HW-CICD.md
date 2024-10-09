@@ -73,6 +73,8 @@ https://stitmarathonlexxaiprod.z16.web.core.windows.net/
 ## Debug
 
 ### Python App Service
+#### Configure alembic init
+![alt text](image-22.png)
 #### BASH
 ![alt text](image-16.png)
 
@@ -91,3 +93,7 @@ Main page (https://stitmarathonlexxaiprod.z16.web.core.windows.net):
 
 Login (Home work task):
 ![alt text](image-15.png)
+
+Test auth Python API:
+![alt text](image-23.png)
+![alt text](image-24.png)
