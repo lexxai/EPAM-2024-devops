@@ -47,7 +47,7 @@ Task 'AzureBlob File Copy' - generate errors for Windows path:
 
 Inline Script:
 ```
-az storage blob upload-batch -d '$web' -s ./ --account-name stitmarathonlexxaiprod
+az storage blob upload-batch --overwrite -d '$web' -s ./ --account-name stitmarathonlexxaiprod
 ```
 Working Directory:
 ```
